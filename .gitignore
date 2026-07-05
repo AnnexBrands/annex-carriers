@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.env
+*.env
+src/.env
+*:Zone.Identifier
+*.egg-info/
