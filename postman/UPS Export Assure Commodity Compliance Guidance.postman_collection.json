@@ -1,0 +1,211 @@
+{
+  "info": {
+    "_postman_id": "eda5a2d6-ca6f-4a02-8e66-c43d9861ac2d",
+    "name": "UPS Export Assure Commodity Compliance Guidance",
+    "description": "Notifies if a commodity in your shipment is prohibited by the destination country, or if additional documentation is required for the shipment to clear customs.\n\nVisit the full [UPS Export Assure Documentation](https://developer.ups.com/api/reference?api=exportassure) for more details!\n\nYou can also view our [Export Assure Product Information](https://developer.ups.com/api/reference/exportassure/product-info) to see what this API integration can do for you.\n\nThis is a premium API offering that incurs cost on API usage, and is currently only available for our US-based subscribers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-eda5a2d6-ca6f-4a02-8e66-c43d9861ac2d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Export Assure Commodity Compliance Guidance Request Example",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "string",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "accountNumber",
+            "value": "985123",
+            "type": "text"
+          },
+          {
+            "key": "transactionSrc",
+            "value": "string",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"transID\": \"c5d87df5-ac58-4ff7-9f96-103debe66496\",\r\n    \"evaluateDescriptions\": true,\r\n    \"evaluatePoaRequirements\": false,\r\n    \"evaluateImportExportRequirements\": false,\r\n    \"shipment\": {\r\n        \"id\": \"47cb07b6-69f1-4ded-95ff-953fee2667de\",\r\n        \"importCountryCode\": \"CA\",\r\n        \"exportCountryCode\": \"US\",\r\n        \"translationLocale\": \"EN\",\r\n        \"transModes\": \"INT_AIR\",\r\n        \"shipmentType\": \"GIFT\",\r\n        \"shipmentDescription\": \"gifts\",\r\n        \"grossWeight\": 15,\r\n        \"grossWeightUnit\": \"KG\",\r\n        \"shipmentItems\": [\r\n            {\r\n                \"commodityId\": \"47cb07b6-69f1-4ded-95ff-953fee2667de\",\r\n                \"eccn\": \"EAR99\",\r\n                \"hsCode\": \"6109.10.0004\",\r\n                \"description\": \"t-shirts\",\r\n                \"originCountryCode\": \"US\",\r\n                \"amountValue\": 1200,\r\n                \"currencyCode\": \"USD\",\r\n                \"quantity\": 5,\r\n                \"UOM\": \"Dozen\"\r\n            },\r\n            {\r\n                \"commodityId\": \"47cb07b6-69f1-4ded-95ff-953fee2667de\",\r\n                \"eccn\": \"EAR99\",\r\n                \"hsCode\": \"6109.10.0042\",\r\n                \"description\": \"t-shirts\",\r\n                \"originCountryCode\": \"US\",\r\n                \"amountValue\": 2400,\r\n                \"currencyCode\": \"USD\",\r\n                \"quantity\": 10,\r\n                \"UOM\": \"Dozen\"\r\n            }\r\n        ]\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/brokerage/v1/importexport/exportassure",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "brokerage",
+            "v1",
+            "importexport",
+            "exportassure"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Export Assure Commodity Compliance Guidance Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "string",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "accountNumber",
+                "value": "985123",
+                "type": "text"
+              },
+              {
+                "key": "transactionSrc",
+                "value": "string",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"transID\": \"c5d87df5-ac58-4ff7-9f96-103debe66496\",\r\n    \"evaluateDescriptions\": true,\r\n    \"evaluatePoaRequirements\": false,\r\n    \"evaluateImportExportRequirements\": false,\r\n    \"shipment\": {\r\n        \"id\": \"47cb07b6-69f1-4ded-95ff-953fee2667de\",\r\n        \"importCountryCode\": \"CA\",\r\n        \"exportCountryCode\": \"US\",\r\n        \"translationLocale\": \"EN\",\r\n        \"transModes\": \"INT_AIR\",\r\n        \"shipmentType\": \"GIFT\",\r\n        \"shipmentDescription\": \"gifts\",\r\n        \"grossWeight\": 15,\r\n        \"grossWeightUnit\": \"KG\",\r\n        \"shipmentItems\": [\r\n            {\r\n                \"commodityId\": \"47cb07b6-69f1-4ded-95ff-953fee2667de\",\r\n                \"eccn\": \"EAR99\",\r\n                \"hsCode\": \"6109.10.0004\",\r\n                \"description\": \"t-shirts\",\r\n                \"originCountryCode\": \"US\",\r\n                \"amountValue\": 1200,\r\n                \"currencyCode\": \"USD\",\r\n                \"quantity\": 5,\r\n                \"UOM\": \"Dozen\"\r\n            },\r\n            {\r\n                \"commodityId\": \"47cb07b6-69f1-4ded-95ff-953fee2667de\",\r\n                \"eccn\": \"EAR99\",\r\n                \"hsCode\": \"6109.10.0042\",\r\n                \"description\": \"t-shirts\",\r\n                \"originCountryCode\": \"US\",\r\n                \"amountValue\": 2400,\r\n                \"currencyCode\": \"USD\",\r\n                \"quantity\": 10,\r\n                \"UOM\": \"Dozen\"\r\n            }\r\n        ]\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/brokerage/v1/importexport/exportassure",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "brokerage",
+                "v1",
+                "importexport",
+                "exportassure"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "errorcode",
+              "value": "250002"
+            },
+            {
+              "key": "errordescription",
+              "value": "Invalid Authentication Information"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "1; mode=block"
+            },
+            {
+              "key": "Access-Control-Max-Age",
+              "value": "600"
+            },
+            {
+              "key": "x-request-id",
+              "value": "dde4e7d5-2266-4cdd-83f7-920a445ebb38"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            },
+            {
+              "key": "Expires",
+              "value": "Thu, 29 Aug 2024 21:08:09 GMT"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=0, no-cache, no-store"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 29 Aug 2024 21:08:09 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "cdn-cache; desc=MISS"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "edge; dur=15"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "origin; dur=86"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "ak_p; desc=\"1724965689805_400320977_507565279_10066_12137_7_28_-\";dur=1"
+            },
+            {
+              "key": "ak-grn-1",
+              "value": "0.d169dc17.1724965689.1e40d4df"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "bm_sv=0F474663506FC1F5CE4BEECD7F2EA1FE~YAAQ0WncF7OI54+RAQAAW5r3nxjvtwqc1Aj6KHHE8YMd9SPkOtVT3o9F4KVTtK3toYzRzmNzQ3qbNPion5KuZiXKYvTytuZNovtRhzal8Gt3Ird/lJFvvpoYdTTtfJTTWyqZOziMJC9Er9FZmCQAWe9gaPjmT5QryWBH4LXTd3o1aYfrAlZkifPQPZ+laG7oOPpcotIIVfnM7WtUBteCg/rxO+GP8rAw73zpV3S4sX6GDpSXfRqE/7Lofx+v~1; Domain=.ups.com; Path=/; Expires=Thu, 29 Aug 2024 22:50:16 GMT; Max-Age=6127; Secure"
+            }
+          ],
+          "cookie": [
+            {
+              "expires": "Invalid Date",
+              "domain": "",
+              "path": ""
+            }
+          ],
+          "body": "{\n    \"transID\": \"45682\",\n    \"shipment\": {\n        \"id\": \"ShipmentId100\",\n        \"hasCommodityWarnings\": true,\n        \"descriptionGuidance\": {\n            \"isMatched\": false,\n            \"message\": null,\n            \"sourceListName\": null,\n            \"matchedKeyword\": null\n        },\n        \"poaCompliance\": {\n            \"importerPoaRequiredFlag\": false,\n            \"importerEvaluationCriteria\": null,\n            \"importerPoaOnFileIndicator\": \"Null\",\n            \"importerCommodityId\": null,\n            \"importerCommodityDescription\": null,\n            \"exporterPoaRequiredFlag\": false,\n            \"exporterEvaluationCriteria\": null,\n            \"exporterPoaOnFileIndicator\": \"Null\",\n            \"exporterCommodityId\": null,\n            \"exporterCommodityDescription\": null,\n            \"exporterOnlineFormFlag\": false,\n            \"exporterDocuSignTemplateId\": null\n        },\n        \"importExportCompliance\": {\n            \"shipmentValue\": 101,\n            \"shipmentCurrencyCode\": \"USD\",\n            \"translationLocale\": \"EN\",\n            \"hasShipmentWarnings\": false,\n            \"hasCommodityWarnings\": true,\n            \"commodityWarningsMessage\": \"Your shipment may have additional clearance considerations, see below for detail:\",\n            \"isShipmentOverGiftValueThreshold\": false,\n            \"shipmentOverGiftValueThresholdMessage\": null,\n            \"isShipmentOverGiftWeightThreshold\": false,\n            \"shipmentOverGiftWeightThresholdMessage\": null\n        },\n        \"shipmentItems\": [\n            {\n                \"commodityId\": \"Test1\",\n                \"hsCode\": \"3605000000\",\n                \"description\": \"tshirt\",\n                \"descriptionGuidance\": {\n                    \"isMatched\": true,\n                    \"message\": \"Men's Shirts, Lingerie, Girls' Vests, Boys', Jackets\",\n                    \"sourceListName\": \"Global\",\n                    \"matchedKeyword\": \"tshirt\"\n                },\n                \"importExportCompliance\": {\n                    \"isUpsProhibited\": false,\n                    \"upsProhibitedMessage\": null,\n                    \"isTranslatedIndicator\": false,\n                    \"complianceOutput\": []\n                }\n            },\n            {\n                \"commodityId\": \"Test2\",\n                \"hsCode\": \"\",\n                \"description\": \"laptop\",\n                \"descriptionGuidance\": {\n                    \"isMatched\": false,\n                    \"message\": null,\n                    \"sourceListName\": null,\n                    \"matchedKeyword\": null\n                },\n                \"importExportCompliance\": {\n                    \"isUpsProhibited\": false,\n                    \"upsProhibitedMessage\": null,\n                    \"isTranslatedIndicator\": false,\n                    \"complianceOutput\": [\n                        {\n                            \"categoryType\": \"Import\",\n                            \"controlTypes\": [\n                                {\n                                    \"controlType\": \"Free Trade Agreement\",\n                                    \"controlTypeCode\": \"FTA\",\n                                    \"isRequired\": \" Maybe\",\n                                    \"controlTypeMessage\": \"Based on the information you provided, your shipment is eligible for reduced duties and taxes under the United States Mexico and Canada Agreement (CUSMA) free trade agreement. To receive these benefits, you’ll need to fill out the certificate of origin document on the next screen\",\n                                    \"controlDetails\": [\n                                        {\n                                            \"controlDetailName\": \"\",\n                                            \"controlDetailDescription\": \"United States Mexico and Canada Agreement (CUSMA)\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        },\n                        {\n                            \"categoryType\": \"Import\",\n                            \"controlTypes\": [\n                                {\n                                    \"controlType\": \"Document\",\n                                    \"controlTypeCode\": \"DOC\",\n                                    \"isRequired\": \"Maybe\",\n                                    \"controlTypeMessage\": \"Based on the information you provided, your shipment is eligible for reduced duties and taxes under the United States Mexico and Canada Agreement (CUSMA) free trade agreement. To receive these benefits, you’ll need to fill out the certificate of origin document on the next screen\",\n                                    \"controlDetails\": [\n                                        {\n                                            \"controlDetailName\": \"b046c134-a2b0-4367-b4c4-665d861a19e7\",\n                                            \"controlDetailDescription\": \"United States Mexico and Canada Agreement (CUSMA)\"\n                                        }\n                                    ]\n                                }\n                            ]\n                        }\n                    ]\n                }\n            }\n        ]\n    },\n    \"errors\": {\n        \"errors\": []\n    },\n    \"perfStats\": {\n        \"absLayerTime\": \"1309\",\n        \"fulfillTime\": \"Thu Aug 01 14:24:51.709 -04:00 2024\",\n        \"receiptTime\": \"Thu Aug 01 14:24:50.399 -04:00 2024\"\n    }\n}"
+        }
+      ]
+    }
+  ]
+}

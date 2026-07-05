@@ -1,0 +1,200 @@
+{
+  "info": {
+    "_postman_id": "bea3b8e9-3a1f-4642-a0ca-22945c18cf00",
+    "name": "UPS Landed Cost Quoting",
+    "description": "Customers get estimated duties, taxes, and brokerage fees for cross border shipments.\n\nVisit the full [UPS Landed Cost Quoting Documentation](https://developer.ups.com/api/reference?loc=en_US#tag/LandedCost_other) for more details!",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-bea3b8e9-3a1f-4642-a0ca-22945c18cf00?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Landed Cost Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "transId",
+            "value": "",
+            "description": "An identifier unique to the request. Length 32",
+            "type": "text"
+          },
+          {
+            "key": "transactionSrc",
+            "value": "testing",
+            "description": "An identifier of the client/source application that is making the request.Length 512",
+            "type": "text"
+          },
+          {
+            "key": "AccountNumber",
+            "value": "",
+            "description": "The account number",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"currencyCode\": \"GBP\",\r\n    \"transID\": \"325467165\",\r\n    \"allowPartialLandedCostResult\": false,\r\n    \"shipment\": {\r\n        \"id\": \"ShipmentID83\",\r\n        \"importCountryCode\": \"GB\",\r\n        \"importProvince\": \"\",\r\n        \"shipDate\": \"\",\r\n        \"exportCountryCode\": \"US\",\r\n        \"incoterms\": \"\",\r\n        \"shipmentItems\": [\r\n            {\r\n                \"commodityId\": \"1\",\r\n                \"grossWeight\": \"\",\r\n                \"grossWeightUnit\": \"\",\r\n                \"priceEach\": \"125\",\r\n                \"hsCode\": \"400932\",\r\n                \"quantity\": 24,\r\n                \"UOM\": \"Each\",\r\n                \"originCountryCode\": \"GB\",\r\n                \"commodityCurrencyCode\": \"GBP\",\r\n                \"description\": \"\"\r\n            },\r\n            {\r\n                \"commodityId\": \"4\",\r\n                \"grossWeight\": \"\",\r\n                \"grossWeightUnit\": \"\",\r\n                \"priceEach\": \"0.5\",\r\n                \"hsCode\": \"\",\r\n                \"quantity\": 900,\r\n                \"UOM\": \"Each\",\r\n                \"originCountryCode\": \"GB\",\r\n                \"commodityCurrencyCode\": \"GBP\",\r\n                \"description\": \"Cord5mm{PK50Yellow/Red\"\r\n            }\r\n        ],\r\n        \"transModes\": \"\",\r\n        \"transportCost\": \"\",\r\n        \"shipmentType\": \"Sale\"\r\n    }\r\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/landedcost/:version/quotes",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "landedcost",
+            ":version",
+            "quotes"
+          ],
+          "variable": [
+            {
+              "key": "version",
+              "value": "v1",
+              "description": "Version of API"
+            }
+          ]
+        },
+        "description": "This HTTP Post request allows customers to provide an **importCountryCode, exportCountryCode,** and a list of **shipmentItems** in order for UPS to provide an estimate of applicable duties, VAT, taxes, brokerage fees, and other costs."
+      },
+      "response": [
+        {
+          "name": "Landed Cost Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "transId",
+                "value": "",
+                "description": "An identifier unique to the request. Length 32",
+                "type": "text"
+              },
+              {
+                "key": "transactionSrc",
+                "value": "testing",
+                "description": "An identifier of the client/source application that is making the request.Length 512",
+                "type": "text"
+              },
+              {
+                "key": "AccountNumber",
+                "value": "",
+                "description": "The account number",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"currencyCode\": \"GBP\",\r\n    \"transID\": \"325467165\",\r\n    \"allowPartialLandedCostResult\": false,\r\n    \"shipment\": {\r\n        \"id\": \"ShipmentID83\",\r\n        \"importCountryCode\": \"GB\",\r\n        \"importProvince\": \"\",\r\n        \"shipDate\": \"\",\r\n        \"exportCountryCode\": \"US\",\r\n        \"incoterms\": \"\",\r\n        \"shipmentItems\": [\r\n            {\r\n                \"commodityId\": \"1\",\r\n                \"grossWeight\": \"\",\r\n                \"grossWeightUnit\": \"\",\r\n                \"priceEach\": \"125\",\r\n                \"hsCode\": \"400932\",\r\n                \"quantity\": 24,\r\n                \"UOM\": \"Each\",\r\n                \"originCountryCode\": \"GB\",\r\n                \"commodityCurrencyCode\": \"GBP\",\r\n                \"description\": \"\"\r\n            },\r\n            {\r\n                \"commodityId\": \"4\",\r\n                \"grossWeight\": \"\",\r\n                \"grossWeightUnit\": \"\",\r\n                \"priceEach\": \"0.5\",\r\n                \"hsCode\": \"\",\r\n                \"quantity\": 900,\r\n                \"UOM\": \"Each\",\r\n                \"originCountryCode\": \"GB\",\r\n                \"commodityCurrencyCode\": \"GBP\",\r\n                \"description\": \"Cord5mm{PK50Yellow/Red\"\r\n            }\r\n        ],\r\n        \"transModes\": \"\",\r\n        \"transportCost\": \"\",\r\n        \"shipmentType\": \"Sale\"\r\n    }\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/landedcost/:version/quotes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "landedcost",
+                ":version",
+                "quotes"
+              ],
+              "variable": [
+                {
+                  "key": "version",
+                  "value": "v1",
+                  "description": "Version of API"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "name": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"alversion\": 1,\n    \"dpversion\": null,\n    \"error\": null,\n    \"perfStats\": {\n        \"absLayerTime\": \"152\",\n        \"fulfillTime\": \"Wed Feb 09 16:20:15.510 -05:00 2022\",\n        \"receiptTime\": \"Wed Feb 09 16:20:15.358 -05:00 2022\"\n    },\n    \"shipment\": {\n        \"brokerageFeeItems\": [],\n        \"currencyCode\": \"USD\",\n        \"grandTotal\": 1064.18,\n        \"id\": \"ShipmentId100\",\n        \"importCountryCode\": \"CA\",\n        \"shipmentItems\": [\n            {\n                \"commodityCurrencyCode\": \"USD\",\n                \"commodityDuty\": 292.48,\n                \"commodityId\": \"Test1\",\n                \"commodityVAT\": 0,\n                \"hsCode\": \"3605.00.00.00\",\n                \"isCalculable\": true,\n                \"totalCommodityDutyandTax\": 532.09,\n                \"totalCommodityTaxesAndFees\": 239.61\n            },\n            {\n                \"commodityCurrencyCode\": \"USD\",\n                \"commodityDuty\": 292.48,\n                \"commodityId\": \"Test2\",\n                \"commodityVAT\": 0,\n                \"hsCode\": \"3605000000\",\n                \"isCalculable\": true,\n                \"totalCommodityDutyandTax\": 532.09,\n                \"totalCommodityTaxesAndFees\": 239.61\n            }\n        ],\n        \"totalBrokerageFees\": 0,\n        \"totalCommodityLevelTaxesAndFees\": 479.22,\n        \"totalDuties\": 584.96,\n        \"totalDutyandTax\": 1064.18,\n        \"totalShipmentLevelTaxesAndFees\": 0,\n        \"totalVAT\": 0\n    },\n    \"transID\": \"325467165\"\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearer_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "/*",
+          "if (Number(pm.globals.get(\"expiry_time\")) < (new Date().getTime() + 10000)) {",
+          "    const jwtt = {",
+          "    url: `${pm.environment.get(\"base_url\")}security/v1/oauth/token`,",
+          "    method: 'POST',",
+          "    header: {",
+          "        'Content-Type': 'application/x-www-form-urlencoded',",
+          "        'Authorization': \"Basic \" + btoa(pm.globals.get(\"client_id\") + \":\" + pm.globals.get(\"client_secret\"))",
+          "    },",
+          "    body: {",
+          "        mode: 'urlencoded',",
+          "        urlencoded: [",
+          "            {key: 'grant_type', value: 'client_credentials'},",
+          "            {key: 'scope', value: '<scope details>'}",
+          "        ]",
+          "    }",
+          "}",
+          "pm.sendRequest(jwtt, (err, res) => {",
+          "        if (err != null) {",
+          "            throw new Error(\"Access Denied.\");",
+          "        } else {",
+          "            pm.globals.set(\"bearer_token\", res.json().access_token);",
+          "            pm.globals.set(\"expiry_time\", Number(res.json().issued_at) + (Number(res.json().expires_in) * 1000));",
+          "        }",
+          "    })",
+          "}",
+          "*/"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://wwwcie.ups.com",
+      "type": "string"
+    }
+  ]
+}

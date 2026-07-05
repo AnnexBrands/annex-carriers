@@ -1,0 +1,162 @@
+{
+  "info": {
+    "_postman_id": "cfd29893-3a81-425c-bc42-328766d9fb6b",
+    "name": "UPS Pre-Notification",
+    "description": "Notify UPS of Dangerous Goods shipments after shipment processing.\n\nVisit the full [UPS Pre-Notification Documentation](https://developer.ups.com/api/reference?loc=en_US#tag/PreNotification_other) for more details!",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-cfd29893-3a81-425c-bc42-328766d9fb6b?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Pre-Notification Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "transId",
+            "value": "testing",
+            "description": "An identifier unique to the request. Length 32",
+            "type": "text"
+          },
+          {
+            "key": "tractionSrc",
+            "value": "testing",
+            "description": "An identifier unique to the request. Length 32",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"PreNotificationRequest\": {\r\n        \"Request\": {\r\n            \"RequestOption\": \"RequestOption\",\r\n            \"SubVersion\": \"3\",\r\n            \"TransactionReference\": {\r\n                \"CustomerContext\": \"\"\r\n            }\r\n        },\r\n        \"Shipment\": {\r\n            \"ShipperNumber\": {{shipper_number}},\r\n            \"ShipmentIdentificationNumber\": \"1Z2398YY81288\",\r\n            \"ShipFromAddress\": {\r\n                \"AddressLine\": \"MY STREET 12\",\r\n                \"City\": \"BOGOTA\",\r\n                \"StateProvinceCode\": \"NJ\",\r\n                \"PostalCode\": \"K1A0B1\",\r\n                \"CountryCode\": \"CA\"\r\n            },\r\n            \"ShipToAddress\": {\r\n                \"AddressLine\": \"MY STREET 12\",\r\n                \"City\": \"BOGOTA\",\r\n                \"StateProvinceCode\": \"NJ\",\r\n                \"PostalCode\": \"K1A0B1\",\r\n                \"CountryCode\": \"CA\"\r\n            },\r\n            \"PickupDate\": \"20171101\",\r\n            \"Service\": {\r\n                \"Code\": \"GND\",\r\n                \"Description\": \"Ground\"\r\n            },\r\n            \"RegulationSet\": \"TDG\",\r\n            \"Package\": {\r\n                \"TrackingNumber\": \"1Z33445567001\",\r\n                \"PackageWeight\": {\r\n                    \"UnitOfMeasurement\": {\r\n                        \"Code\": \"KGS\",\r\n                        \"Description\": \"Kilo\"\r\n                    },\r\n                    \"Weight\": \"12\"\r\n                },\r\n                \"TransportationMode\": \"GND\",\r\n                \"VoidIndicator\": \"\",\r\n                \"PackagePoints\": \"12\",\r\n                \"ChemicalRecord\": {\r\n                    \"ReportableQuantity\": \"1\",\r\n                    \"ClassDivisionNumber\": \"I\",\r\n                    \"SubRiskClass\": \"1234\",\r\n                    \"IDNumber\": \"UN2761\",\r\n                    \"PackagingGroupType\": \"0\",\r\n                    \"Quantity\": \"1\",\r\n                    \"UOM\": \"LBS\",\r\n                    \"PackagingInstructionCode\": \"TEST\",\r\n                    \"EmergencyPhone\": \"\",\r\n                    \"EmergencyContact\": \"\",\r\n                    \"ProperShippingName\": \"TEST SHIPPING\",\r\n                    \"TechnicalName\": \"\",\r\n                    \"AdditionalDescription\": \"\",\r\n                    \"PackagingType\": \"\",\r\n                    \"HazardLabelRequired\": \"LABEL\",\r\n                    \"PackagingTypeQuantity\": \"1\",\r\n                    \"CommodityRegulatedLevelCode\": \"LR\",\r\n                    \"TransportCategory\": \"0\",\r\n                    \"TunnelRestrictionCode\": \"1\",\r\n                    \"QValue\": \"0.1\",\r\n                    \"OverPackedIndicator\": \"\",\r\n                    \"AllPackedInOneIndicator\": \"\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/dangerousgoods/:version/prenotification",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "dangerousgoods",
+            ":version",
+            "prenotification"
+          ],
+          "variable": [
+            {
+              "key": "version",
+              "value": "v2",
+              "description": "Version of API, such as v2"
+            }
+          ]
+        },
+        "description": "This HTTP POST request is used to nofiy UPS operations of upcoming Dangerous Goods shipments entering the network prior to the manifest information being uploaded."
+      },
+      "response": [
+        {
+          "name": "Pre-Notification Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "transId",
+                "value": "testing",
+                "description": "An identifier unique to the request. Length 32",
+                "type": "text"
+              },
+              {
+                "key": "tractionSrc",
+                "value": "testing",
+                "description": "An identifier unique to the request. Length 32",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"PreNotificationRequest\": {\r\n        \"Request\": {\r\n            \"RequestOption\": \"RequestOption\",\r\n            \"SubVersion\": \"3\",\r\n            \"TransactionReference\": {\r\n                \"CustomerContext\": \"\",\r\n                \"TransactionIdentifier\": \"\"\r\n            }\r\n        },\r\n        \"Shipment\": {\r\n            \"ShipperNumber\": {{shipper_number}},\r\n            \"ShipmentIdentificationNumber\": \"1Z2398YY81288\",\r\n            \"ShipFromAddress\": {\r\n                \"AddressLine\": \"MY STREET 12\",\r\n                \"City\": \"BOGOTA\",\r\n                \"StateProvinceCode\": \"NJ\",\r\n                \"PostalCode\": \"K1A0B1\",\r\n                \"CountryCode\": \"CA\"\r\n            },\r\n            \"ShipToAddress\": {\r\n                \"AddressLine\": \"MY STREET 12\",\r\n                \"City\": \"BOGOTA\",\r\n                \"StateProvinceCode\": \"NJ\",\r\n                \"PostalCode\": \"K1A0B1\",\r\n                \"CountryCode\": \"CA\"\r\n            },\r\n            \"PickupDate\": \"20171101\",\r\n            \"Service\": {\r\n                \"Code\": \"GND\",\r\n                \"Description\": \"Ground\"\r\n            },\r\n            \"RegulationSet\": \"TDG\",\r\n            \"Package\": {\r\n                \"TrackingNumber\": \"1Z33445567001\",\r\n                \"PackageWeight\": {\r\n                    \"UnitOfMeasurement\": {\r\n                        \"Code\": \"KGS\",\r\n                        \"Description\": \"Kilo\"\r\n                    },\r\n                    \"Weight\": \"12\"\r\n                },\r\n                \"TransportationMode\": \"GND\",\r\n                \"VoidIndicator\": \"\",\r\n                \"PackagePoints\": \"12\",\r\n                \"ChemicalRecord\": {\r\n                    \"ReportableQuantity\": \"1\",\r\n                    \"ClassDivisionNumber\": \"I\",\r\n                    \"SubRiskClass\": \"1234\",\r\n                    \"IDNumber\": \"UN2761\",\r\n                    \"PackagingGroupType\": \"0\",\r\n                    \"Quantity\": \"1\",\r\n                    \"UOM\": \"LBS\",\r\n                    \"PackagingInstructionCode\": \"TEST\",\r\n                    \"EmergencyPhone\": \"\",\r\n                    \"EmergencyContact\": \"\",\r\n                    \"ProperShippingName\": \"TEST SHIPPING\",\r\n                    \"TechnicalName\": \"\",\r\n                    \"AdditionalDescription\": \"\",\r\n                    \"PackagingType\": \"\",\r\n                    \"HazardLabelRequired\": \"LABEL\",\r\n                    \"PackagingTypeQuantity\": \"1\",\r\n                    \"CommodityRegulatedLevelCode\": \"LR\",\r\n                    \"TransportCategory\": \"0\",\r\n                    \"TunnelRestrictionCode\": \"1\",\r\n                    \"QValue\": \"0.1\",\r\n                    \"OverPackedIndicator\": \"\",\r\n                    \"AllPackedInOneIndicator\": \"\"\r\n                }\r\n            }\r\n        }\r\n    }\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/dangerousgoods/:version/prenotification",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "dangerousgoods",
+                ":version",
+                "prenotification"
+              ],
+              "variable": [
+                {
+                  "key": "version",
+                  "value": "v1",
+                  "description": "Version of API, such as v1"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "name": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"PreNotificationResponse\": {\n        \"Response\": {\n            \"ResponseStatus\": {\n                \"Code\": \"1\",\n                \"Description\": \"Success\"\n            },\n            \"TransactionReference\": {\n                \"CustomerContext\": \"Your customer context\",\n                \"TransactionIdentifier\": \"testing\"\n            }\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearer_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://wwwcie.ups.com",
+      "type": "string"
+    }
+  ]
+}

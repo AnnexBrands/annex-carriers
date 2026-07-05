@@ -1,0 +1,176 @@
+{
+  "info": {
+    "_postman_id": "03fdbe2a-6b74-4fc6-8e9a-6a288b2dd47d",
+    "name": "UPS DeliveryDefense Address Confidence",
+    "description": "Obtain address confidence scoring that leverages artificial intelligence and enriched delivery data to predict shipping outcomes before you even create a label.\n\nVisit the full [UPS DeliveryDefense Address Confidence](https://developer.ups.com/api/reference?api=deliverydefense) for more details!\n\nYou can also view our [DeliveryDefense Product Information](https://developer.ups.com/api/reference/deliverydefense/product-info) to see what this API integration can do for you.\n\nThis is a premium API offering that incurs cost on API usage, and is currently only available for our US-based subscribers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-03fdbe2a-6b74-4fc6-8e9a-6a288b2dd47d?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "DeliveryDefense Address Confidence Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer <YOUR_TOKEN_HERE>",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"street\": \"1173 CLARENDON DR\",\r\n    \"city\": \"MARIETTA\",\r\n    \"state\": \"GA\",\r\n    \"zipCode\": \"30068\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/deliverydefense/external/v1.0/address/score",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "deliverydefense",
+            "external",
+            "v1.0",
+            "address",
+            "score"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "DeliveryDefense Address Confidence Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"street\": \"1173 CLARENDON DR\",\r\n    \"city\": \"MARIETTA\",\r\n    \"state\": \"GA\",\r\n    \"zipCode\": \"30068\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/deliverydefense/external/v1.0/address/score",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "deliverydefense",
+                "external",
+                "v1.0",
+                "address",
+                "score"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "errorcode",
+              "value": "250002"
+            },
+            {
+              "key": "errordescription",
+              "value": "Invalid Authentication Information"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "1; mode=block"
+            },
+            {
+              "key": "Access-Control-Max-Age",
+              "value": "600"
+            },
+            {
+              "key": "x-request-id",
+              "value": "c211aab6-6aef-44f4-a68e-389bf2513068"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            },
+            {
+              "key": "Expires",
+              "value": "Thu, 29 Aug 2024 21:03:45 GMT"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=0, no-cache, no-store"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 29 Aug 2024 21:03:45 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "cdn-cache; desc=MISS"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "edge; dur=21"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "origin; dur=29"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "ak_p; desc=\"1724965425536_400321032_208444824_4960_9397_7_3_-\";dur=1"
+            },
+            {
+              "key": "ak-grn-1",
+              "value": "0.086adc17.1724965425.c6c9d98"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "bm_sv=0F474663506FC1F5CE4BEECD7F2EA1FE~YAAQCGrcFwEcyZqRAQAAv5HznxguorpXwEiHV4ToABvdUc8LqJzufImbYjIyJLAvpW4zJEimyO9uj2Qki2eePgVwKdZBPwuxcs5uCl+n1yXrG7xcGXC+zZnMDOB+KwBhdU16zqhSml2fhE9bWNOPLYhKotDxP3YAhUHKfi5vj773xh8R9bDF4HdeWCQ0V/8p5Plnaev47XI8yXg7P4goO6dC/Qo+S/pgNAxCLsGrvNy8tSlXKh0hcFlARyvd~1; Domain=.ups.com; Path=/; Expires=Thu, 29 Aug 2024 22:50:16 GMT; Max-Age=6391; Secure"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"status\": {\n        \"message\": \"OK\"\n    },\n    \"data\": {\n        \"address\": \"1173 CLARENDON DR, MARIETTA, GA 30068, US\",\n        \"street\": \"1173 CLARENDON DR\",\n        \"city\": \"MARIETTA\",\n        \"state\": \"GA\",\n        \"zipCode\": \"30068\",\n        \"country\": \"US\",\n        \"score\": 402,\n        \"resiComFlag\": \"Residential\"\n    }\n}"
+        }
+      ]
+    }
+  ]
+}

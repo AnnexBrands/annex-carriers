@@ -1,0 +1,138 @@
+{
+  "info": {
+    "_postman_id": "84cbd22f-67ec-4c9c-b500-620b266922c9",
+    "name": "UPS Quantum View",
+    "description": "Stream Quantum View Data into internal applications.\n\nVisit the full [UPS Quantum View Documentation](https://developer.ups.com/api/reference?loc=en_US#tag/QuantumView_other) for more details!",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-84cbd22f-67ec-4c9c-b500-620b266922c9?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Quantum View Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"QuantumViewRequest\": {\r\n      \"Request\": {\r\n          \"TransactionReference\": {\r\n              \"CustomerContext\": \"\",\r\n              \"XpciVersion\": \"1.0007\"\r\n            },\r\n          \"RequestAction\": \"QVEvents\"\r\n        },\r\n      \"SubscriptionRequest\": {\r\n          \"FileName\": \"220104_140019001\",\r\n          \"Name\": \"OutboundXML\",\r\n          \"Bookmark\": \"WE9MVFFBMQ==\"\r\n        }\r\n    }\r\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/quantumview/:version/events",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "quantumview",
+            ":version",
+            "events"
+          ],
+          "variable": [
+            {
+              "key": "version",
+              "value": "v2",
+              "description": "Version of API"
+            }
+          ]
+        },
+        "description": "This HTTP POST request allows the user to retrieve shipment details for either a given subscription, or retrieve additional details based on a bookmark."
+      },
+      "response": [
+        {
+          "name": "Quantum View Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"QuantumViewRequest\": {\r\n      \"Request\": {\r\n          \"TransactionReference\": {\r\n              \"CustomerContext\": \"\",\r\n              \"XpciVersion\": \"1.0007\"\r\n            },\r\n          \"RequestAction\": \"QVEvents\"\r\n        },\r\n      \"SubscriptionRequest\": {\r\n          \"FileName\": \"220104_140019001\",\r\n          \"Name\": \"OutboundXML\",\r\n          \"Bookmark\": \"WE9MVFFBMQ==\"\r\n        }\r\n    }\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/quantumview/:version/events",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "quantumview",
+                ":version",
+                "events"
+              ],
+              "variable": [
+                {
+                  "key": "version",
+                  "value": "v1",
+                  "description": "Version of API"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "name": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"QuantumViewResponse\": {\n        \"QuantumViewEvents\": {\n            \"SubscriberID\": \"SubScriptAll\",\n            \"SubscriptionEvents\": {\n                \"Name\": \"OutboundFull\",\n                \"Number\": \"45BD09FCCEEA27BA\",\n                \"SubscriptionFile\": [\n                    {\n                        \"FileName\": \"Subscription_FileName\",\n                        \"Manifest\": [\n                            {\n                                \"BillToAccount\": {\n                                    \"Number\": \"QVDR01\",\n                                    \"Option\": \"01\"\n                                },\n                                \"DocumentsOnly\": \"3\",\n                                \"Package\": {\n                                    \"Activity\": {\n                                        \"Date\": \"20070824\",\n                                        \"Time\": \"132526\"\n                                    },\n                                    \"Description\": \"MerchandiseDescription\",\n                                    \"DimensionalWeight\": {\n                                        \"UnitOfMeasurement\": {\n                                            \"Code\": \"LBS\"\n                                        },\n                                        \"Weight\": \"0000020\"\n                                    },\n                                    \"Dimensions\": {\n                                        \"Height\": \"00000000\",\n                                        \"Length\": \"00000000\",\n                                        \"Width\": \"00000000\"\n                                    },\n                                    \"PackageServiceOptions\": {\n                                        \"COD\": \"\"\n                                    },\n                                    \"PackageWeight\": {\n                                        \"Weight\": \"+0002.0\"\n                                    },\n                                    \"ReferenceNumber\": [\n                                        {\n                                            \"Code\": \"00\",\n                                            \"Value\": \"123456789\"\n                                        },\n                                        {\n                                            \"Code\": \"PO\",\n                                            \"Value\": \"444789\"\n                                        },\n                                        {\n                                            \"Code\": \"00\",\n                                            \"Value\": \"A1\"\n                                        }\n                                    ],\n                                    \"TrackingNumber\": \"TrackingNumber\"\n                                },\n                                \"PickupDate\": \"20070824\",\n                                \"ReferenceNumber\": [\n                                    {\n                                        \"Code\": \"00\",\n                                        \"Value\": \"123456789\"\n                                    },\n                                    {\n                                        \"Code\": \"PO\",\n                                        \"Value\": \"444789\"\n                                    }\n                                ],\n                                \"Service\": {\n                                    \"Code\": \"001\"\n                                },\n                                \"ShipmentChargeType\": \"P/P\",\n                                \"ShipmentServiceOptions\": {\n                                    \"CallTagARS\": {\n                                        \"Code\": \"8\"\n                                    }\n                                },\n                                \"Shipper\": {\n                                    \"Address\": {\n                                        \"AddressLine1\": \"3406 BUFORD HWY\",\n                                        \"City\": \"DULUTH\",\n                                        \"CountryCode\": \"US\",\n                                        \"PostalCode\": \"300963551\",\n                                        \"StateProvinceCode\": \"GA\"\n                                    },\n                                    \"Name\": \"BILLY CO\",\n                                    \"ShipperNumber\": \"ShipperNumber\"\n                                },\n                                \"ShipTo\": {\n                                    \"Address\": {\n                                        \"AddressLine1\": \"26021 ATLANTIC OCEAN DRIVE\",\n                                        \"City\": \"LAKE FOREST\",\n                                        \"ConsigneeName\": \"RSD\",\n                                        \"CountryCode\": \"US\",\n                                        \"PostalCode\": \"926308831\",\n                                        \"StateProvinceCode\": \"CA\"\n                                    }\n                                }\n                            },\n                            {\n                                \"BillToAccount\": {\n                                    \"Number\": \"QVDR01\",\n                                    \"Option\": \"01\"\n                                },\n                                \"DocumentsOnly\": \"3\",\n                                \"Package\": {\n                                    \"Activity\": {\n                                        \"Date\": \"20070824\",\n                                        \"Time\": \"134527\"\n                                    },\n                                    \"Description\": \"MerchandiseDescription\",\n                                    \"DimensionalWeight\": {\n                                        \"UnitOfMeasurement\": {\n                                            \"Code\": \"LBS\"\n                                        },\n                                        \"Weight\": \"0000020\"\n                                    },\n                                    \"Dimensions\": {\n                                        \"Height\": \"00000000\",\n                                        \"Length\": \"00000000\",\n                                        \"Width\": \"00000000\"\n                                    },\n                                    \"PackageServiceOptions\": {\n                                        \"COD\": \"\"\n                                    },\n                                    \"PackageWeight\": {\n                                        \"Weight\": \"+0002.0\"\n                                    },\n                                    \"ReferenceNumber\": {\n                                        \"Code\": \"PO\",\n                                        \"Value\": \"444789\"\n                                    },\n                                    \"TrackingNumber\": \"TrackingNumber\"\n                                },\n                                \"PickupDate\": \"20070824\",\n                                \"ReferenceNumber\": [\n                                    {\n                                        \"Code\": \"00\",\n                                        \"Value\": \"123456789\"\n                                    },\n                                    {\n                                        \"Code\": \"PO\",\n                                        \"Value\": \"444789\"\n                                    }\n                                ],\n                                \"Service\": {\n                                    \"Code\": \"001\"\n                                },\n                                \"ShipmentChargeType\": \"P/P\",\n                                \"ShipmentServiceOptions\": {\n                                    \"CallTagARS\": {\n                                        \"Code\": \"8\"\n                                    }\n                                },\n                                \"Shipper\": {\n                                    \"Address\": {\n                                        \"AddressLine1\": \"3406 BUFORD HWY\",\n                                        \"City\": \"DULUTH\",\n                                        \"CountryCode\": \"US\",\n                                        \"PostalCode\": \"300963551\",\n                                        \"StateProvinceCode\": \"GA\"\n                                    },\n                                    \"Name\": \"BILLY CO\",\n                                    \"ShipperNumber\": \"QVDR01\"\n                                },\n                                \"ShipTo\": {\n                                    \"Address\": {\n                                        \"AddressLine1\": \"26021 ATLANTIC OCEAN DRIVE\",\n                                        \"City\": \"LAKE FOREST\",\n                                        \"ConsigneeName\": \"RSD\",\n                                        \"CountryCode\": \"US\",\n                                        \"PostalCode\": \"926308831\",\n                                        \"StateProvinceCode\": \"CA\"\n                                    }\n                                }\n                            }\n                        ],\n                        \"StatusType\": {\n                            \"Code\": \"U\",\n                            \"Description\": \"Unread\"\n                        }\n                    },\n                    {\n                        \"FileName\": \" Subscription_FileName \",\n                        \"Generic\": [\n                            {\n                                \"Activity\": {\n                                    \"Date\": \"20070824\",\n                                    \"Time\": \"130533\"\n                                },\n                                \"ActivityType\": \"VM\",\n                                \"BillToAccount\": {\n                                    \"Number\": \"QVDR03\",\n                                    \"Option\": \"03\"\n                                },\n                                \"Service\": {\n                                    \"Code\": \"001\"\n                                },\n                                \"ShipperNumber\": \"QVDR01\",\n                                \"ShipTo\": {\n                                    \"ReceivingAddressName\": \"RSDTCNTRL-LAKEFOREST\"\n                                },\n                                \"TrackingNumber\": \"TrackingNumber\"\n                            },\n                            {\n                                \"Activity\": {\n                                    \"Date\": \"20070824\",\n                                    \"Time\": \"134438\"\n                                },\n                                \"ActivityType\": \"VM\",\n                                \"BillToAccount\": {\n                                    \"Number\": \"QVDR03\",\n                                    \"Option\": \"03\"\n                                },\n                                \"Service\": {\n                                    \"Code\": \"001\"\n                                },\n                                \"ShipperNumber\": \"QVDR01\",\n                                \"ShipTo\": {\n                                    \"ReceivingAddressName\": \"RSDTCNTRL-LAKEFOREST\"\n                                },\n                                \"TrackingNumber\": \"TrackingNumber\"\n                            }\n                        ],\n                        \"StatusType\": {\n                            \"Code\": \"U\",\n                            \"Description\": \"Unread\"\n                        }\n                    },\n                    {\n                        \"Exception\": {\n                            \"BillToAccount\": {\n                                \"Number\": \"QVDR03\",\n                                \"Option\": \"03\"\n                            },\n                            \"Date\": \"20070824\",\n                            \"ReasonCode\": \"78\",\n                            \"ReasonDescription\": \"THE SHIPPER HAS REQUESTED A DELIVERY INTERCEPT FOR THIS PACKAGE\",\n                            \"Resolution\": {\n                                \"Code\": \"AH\",\n                                \"Description\": \"THE ADDRESS HAS BEEN CORRECTED. THE DELIVERY HAS BEEN RESCHEDULED\"\n                            },\n                            \"ShipperNumber\": \"QVDR01\",\n                            \"Time\": \"101000\",\n                            \"TrackingNumber\": \"TrackingNumber\",\n                            \"UpdatedAddress\": {\n                                \"ConsigneeName\": \"MMX\",\n                                \"CountryCode\": \"US\",\n                                \"PoliticalDivision1\": \"GA\",\n                                \"PoliticalDivision2\": \"ATLANTA\",\n                                \"PostcodePrimaryLow\": \"30350\",\n                                \"StreetName\": \"SANDALWOOD\",\n                                \"StreetNumberLow\": \"1801\",\n                                \"StreetType\": \"DR\"\n                            }\n                        },\n                        \"FileName\": \"Subscription_FileName\",\n                        \"Origin\": {\n                            \"ActivityLocation\": {\n                                \"AddressArtifactFormat\": {\n                                    \"CountryCode\": \"US\",\n                                    \"PoliticalDivision1\": \"GA\",\n                                    \"PoliticalDivision2\": \"ROSWELL-ROSWELL\"\n                                }\n                            },\n                            \"BillToAccount\": {\n                                \"Number\": \"QVDR03\",\n                                \"Option\": \"03\"\n                            },\n                            \"Date\": \"20070824\",\n                            \"PackageReferenceNumber\": [\n                                {\n                                    \"Code\": \"00\",\n                                    \"Value\": \"QAST ROW PKG 01\"\n                                },\n                                {\n                                    \"Code\": \"33\",\n                                    \"Value\": \"12345\"\n                                }\n                            ],\n                            \"ShipmentReferenceNumber\": {\n                                \"Code\": \"00\",\n                                \"Value\": \"04ROW01\"\n                            },\n                            \"ShipperNumber\": \"QVDR01\",\n                            \"Time\": \"101000\",\n                            \"TrackingNumber\": \"TrackingNumber\"\n                        },\n                        \"StatusType\": {\n                            \"Code\": \"U\",\n                            \"Description\": \"Unread\"\n                        }\n                    }\n                ],\n                \"SubscriptionStatus\": {\n                    \"Code\": \"A\",\n                    \"Description\": \"Active\"\n                }\n            }\n        },\n        \"Response\": {\n            \"ResponseStatusCode\": \"1\",\n            \"ResponseStatusDescription\": \"Success\",\n            \"TransactionReference\": \"\"\n        }\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearer_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://wwwcie.ups.com",
+      "type": "string"
+    }
+  ]
+}

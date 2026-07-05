@@ -1,0 +1,177 @@
+{
+  "info": {
+    "_postman_id": "1a9d5822-0333-4bec-b1a5-c2ec6b5a81da",
+    "name": "UPS Export Assure Interactive Description of Goods",
+    "description": "UPS® Export Assure provides in-shipping, AI powered guidance to check your description and, if needed, ask questions to improve it in order to avoid customs delays.\n\nVisit the full [UPS Interactive Description Documentation](https://developer.ups.com/api/reference?api=interactivedescription) for more details!\n\nYou can also view our [Interactive Description Product Information](https://developer.ups.com/api/reference/exportassure/product-info) to see what this API integration can do for you.\n\nThis is a premium API offering that incurs cost on API usage, and is currently only available for our US-based subscribers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-1a9d5822-0333-4bec-b1a5-c2ec6b5a81da?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "UPS Export Assure Interactive Description of Goods Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "transId",
+            "value": "string",
+            "type": "text"
+          },
+          {
+            "key": "transactionSrc",
+            "value": "string",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"importCountryCode\": \"US\",\r\n    \"exportCountryCode\": \"US\",\r\n    \"commodityValue\": \"100.00\",\r\n    \"commodityCurrencyCode\": \"USD\",\r\n    \"commodityQuantity\": \"100\",\r\n    \"commodityUnitOfMeasure\": \"ml\",\r\n    \"commodityDescription\": \"Water Bottles\",\r\n    \"commodityHtsCode\": \"0101\",\r\n    \"commodityCountryOfOrigin\": \"US\",\r\n    \"shipperName\": \"Hardwood Floors LLC\",\r\n    \"shipperAccountNumber\": \"10003KER50\",\r\n    \"locale\": \"EN\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/export-assure/v1/interactive",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "export-assure",
+            "v1",
+            "interactive"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Export Assure Interactive Description of Goods Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"importCountryCode\": \"US\",\r\n    \"exportCountryCode\": \"US\",\r\n    \"commodityValue\": \"100.00\",\r\n    \"commodityCurrencyCode\": \"USD\",\r\n    \"commodityQuantity\": \"100\",\r\n    \"commodityUnitOfMeasure\": \"ml\",\r\n    \"commodityDescription\": \"Water Bottles\",\r\n    \"commodityHtsCode\": \"0101\",\r\n    \"commodityCountryOfOrigin\": \"US\",\r\n    \"shipperName\": \"Hardwood Floors LLC\",\r\n    \"shipperAccountNumber\": \"10003KER50\",\r\n    \"locale\": \"EN\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/export-assure/v1/interactive",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "export-assure",
+                "v1",
+                "interactive"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "errorcode",
+              "value": "250002"
+            },
+            {
+              "key": "errordescription",
+              "value": "Invalid Authentication Information"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "1; mode=block"
+            },
+            {
+              "key": "Access-Control-Max-Age",
+              "value": "600"
+            },
+            {
+              "key": "x-request-id",
+              "value": "7efaea14-6636-4f09-92ff-e12332995964"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            },
+            {
+              "key": "Expires",
+              "value": "Thu, 29 Aug 2024 21:09:35 GMT"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=0, no-cache, no-store"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 29 Aug 2024 21:09:35 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "cdn-cache; desc=MISS"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "edge; dur=147"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "origin; dur=15"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "ak_p; desc=\"1724965775767_389085615_207937205_16190_9484_8_5_-\";dur=1"
+            },
+            {
+              "key": "ak-grn-1",
+              "value": "0.aff93017.1724965775.c64deb5"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "bm_sv=0F474663506FC1F5CE4BEECD7F2EA1FE~YAAQr/kwF0FqpJWRAQAASOr4nxh4bgVNrMwvnszA7K0whVA/b4htAW6DZNeFeoPM5RrTDdBLKH/J5hTgD9Tw7QDHpearBEn84F1IZ8IIw8l1YNuLvbWNUW3Yi+bhqgCmFhQ0DmFGKkunq1/NGE2p1okvRKR8geC5evGcQWgZoCGof9V+nUEaDeQcUwMEF83/eih9Ab6yeoEoXPDQOrxcH1tpOit/dlVtJ3AJPcC6AN0NMHVmYcHS9gkWoQVc~1; Domain=.ups.com; Path=/; Expires=Thu, 29 Aug 2024 22:50:16 GMT; Max-Age=6041; Secure"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"newProductDescription\": \"water bottles\",\n    \"actualHts\": \"\",\n    \"suggestedHts\": \"\",\n    \"confidence\": null,\n    \"noMoreQuestions\": false,\n    \"questions\": [\n        {\n            \"id\": \"bc5f2c20656e11ef8ff80a370648ae4c-1\",\n            \"type\": \"multiple_choice\",\n            \"question\": \"What is the material of your water bottles?\",\n            \"options\": [\n                \"Glass\",\n                \"Plastic\",\n                \"Metal\",\n                \"Ceramic\",\n                \"Other\"\n            ],\n            \"other\": null,\n            \"selected\": null,\n            \"assumed\": false\n        }\n    ],\n    \"session\": {\n        \"id\": \"bc5f2c20656e11ef8ff80a370648ae4c\",\n        \"historyDesc\": []\n    }\n}"
+        }
+      ]
+    }
+  ]
+}

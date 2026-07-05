@@ -1,0 +1,392 @@
+{
+  "info": {
+    "_postman_id": "7513df2c-af1b-4e5c-8b5d-5797d03a6a44",
+    "name": "UPS Track Alert",
+    "description": "Push-based tracking subscription to enable near real time visibility. Can also be enhanced to include Delivery Photo Confirmation.\n\nVisit the full [UPS Track Alert Documentation](https://developer.ups.com/api/reference?api=trackalert) and [UPS Track Alert Enhanced Documentation](https://developer.ups.com/api/reference?api=trackalertenhanced) for more details!\n\nYou can also view our [Track Alert Product Information](https://developer.ups.com/api/reference/trackalertenhanced/product-info) to see what this API integration can do for you.\n\nThis is a premium API, and is currently only available for our US-based subscribers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-7513df2c-af1b-4e5c-8b5d-5797d03a6a44?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Track Alert Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "transId",
+            "value": "string",
+            "type": "text"
+          },
+          {
+            "key": "transactionSrc",
+            "value": "string",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"locale\": \"en_US\",\r\n    \"countryCode\": \"US\",\r\n    \"trackingNumberList\": [\r\n        \"1ZCIETST0111111114\",\r\n        \"1ZCIETST0422222228\"\r\n    ],\r\n    \"scanPreference\": [\r\n        \"string\"\r\n    ],\r\n    \"destination\": {\r\n        \"url\": \"https://test.ups.com\",\r\n        \"credentialType\": \"Bearer\",\r\n        \"credential\": \"string\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/track/v1/subscription/standard/package",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "track",
+            "v1",
+            "subscription",
+            "standard",
+            "package"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Track Alert Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <YOUR_TOKEN_HERE>",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "transId",
+                "value": "string",
+                "type": "text"
+              },
+              {
+                "key": "transactionSrc",
+                "value": "string",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"locale\": \"en_US\",\r\n    \"countryCode\": \"US\",\r\n    \"trackingNumberList\": [\r\n        \"1ZCIETST0111111114\",\r\n        \"1ZCIETST0422222228\"\r\n    ],\r\n    \"scanPreference\": [\r\n        \"string\"\r\n    ],\r\n    \"destination\": {\r\n        \"url\": \"https://test.ups.com\",\r\n        \"credentialType\": \"Bearer\",\r\n        \"credential\": \"string\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/track/v1/subscription/standard/package",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "track",
+                "v1",
+                "subscription",
+                "standard",
+                "package"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "errorcode",
+              "value": "250002"
+            },
+            {
+              "key": "errordescription",
+              "value": "Invalid Authentication Information"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "1; mode=block"
+            },
+            {
+              "key": "Access-Control-Max-Age",
+              "value": "600"
+            },
+            {
+              "key": "x-request-id",
+              "value": "7249a2c0-7fcd-4e85-ba3f-8b10adb41ee2"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            },
+            {
+              "key": "Expires",
+              "value": "Thu, 29 Aug 2024 20:37:12 GMT"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=0, no-cache, no-store"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 29 Aug 2024 20:37:12 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "cdn-cache; desc=MISS"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "edge; dur=59"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "origin; dur=19"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "ak_p; desc=\"1724963832292_400321300_562904055_7743_11259_1_6_-\";dur=1"
+            },
+            {
+              "key": "ak-grn-1",
+              "value": "0.146bdc17.1724963832.218d3bf7"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "ak_bmsc=58FEB758EFC11B3E09FCAFCB79C35CF5~000000000000000000000000000000~YAAQFGvcF/h6NI6RAQAAQ0LbnxihfgqFNYP3IpvpE1L21BGFOeWSVckE/0fkcoJDtxiZtsWp8p7tyCpvau2XhGVuMLADzIibWGZwsqkFVaT9i75PYj0S2nd9kGv6lHjZsw3d2g6TZ1KduTgMRh9jo0izdRWtDksM7ahEX/ozhmdPuZ9/orIIhvPKjghO3Km83Vbnl9oVQq+PDyOum195Kzcj0Ti5g6rg2ebXHK7XrMdVgFeiD5za3jYnv9wSPIGrE51iYdtBloE+XBqr3rz7xsZsta3he50z0ULwDWJUIXjZ/H3Ppi3pNWAytESVSLDjJUQ9qlAwrKZHR4QQvT3Gb7D4QmDIjFIgDjicQqgPTRYot5PPxLyXnw==; Domain=.ups.com; Path=/; Expires=Thu, 29 Aug 2024 22:37:12 GMT; Max-Age=7200"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"validTrackingNumbers\": [\n        \"1ZCIETST0111111114\",\n        \"1ZCIETST0422222228\"\n    ],\n    \"invalidTrackingNumbers\": []\n}"
+        }
+      ]
+    },
+    {
+      "name": "Track Alert Enhanced Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "transId",
+            "value": "string",
+            "type": "text"
+          },
+          {
+            "key": "transactionSrc",
+            "value": "string",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"locale\": \"en_US\",\r\n    \"countryCode\": \"US\",\r\n    \"trackingNumberList\": [\r\n      \"1ZCIETST0111111114\",\r\n      \"1ZCIETST0422222228\"\r\n    ],\r\n    \"scanPreference\": [\r\n      \"string\"\r\n    ],\r\n    \"destination\": {\r\n      \"url\": \"https://test.ups.com\",\r\n      \"credentialType\": \"Bearer\",\r\n      \"credential\": \"string\"\r\n    }\r\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/track/v1/subscription/enhanced/package",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "track",
+            "v1",
+            "subscription",
+            "enhanced",
+            "package"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Track Alert Enhanced Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer <YOUR_TOKEN_HERE>",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "transId",
+                "value": "string",
+                "type": "text"
+              },
+              {
+                "key": "transactionSrc",
+                "value": "string",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"locale\": \"en_US\",\r\n    \"countryCode\": \"US\",\r\n    \"trackingNumberList\": [\r\n        \"1ZCIETST0111111114\",\r\n        \"1ZCIETST0422222228\"\r\n    ],\r\n    \"scanPreference\": [\r\n        \"string\"\r\n    ],\r\n    \"destination\": {\r\n        \"url\": \"https://test.ups.com\",\r\n        \"credentialType\": \"Bearer\",\r\n        \"credential\": \"string\"\r\n    }\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/track/v1/subscription/standard/package",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "track",
+                "v1",
+                "subscription",
+                "standard",
+                "package"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "errorcode",
+              "value": "250002"
+            },
+            {
+              "key": "errordescription",
+              "value": "Invalid Authentication Information"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "1; mode=block"
+            },
+            {
+              "key": "Access-Control-Max-Age",
+              "value": "600"
+            },
+            {
+              "key": "x-request-id",
+              "value": "7249a2c0-7fcd-4e85-ba3f-8b10adb41ee2"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            },
+            {
+              "key": "Expires",
+              "value": "Thu, 29 Aug 2024 20:37:12 GMT"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=0, no-cache, no-store"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 29 Aug 2024 20:37:12 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "cdn-cache; desc=MISS"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "edge; dur=59"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "origin; dur=19"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "ak_p; desc=\"1724963832292_400321300_562904055_7743_11259_1_6_-\";dur=1"
+            },
+            {
+              "key": "ak-grn-1",
+              "value": "0.146bdc17.1724963832.218d3bf7"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "ak_bmsc=58FEB758EFC11B3E09FCAFCB79C35CF5~000000000000000000000000000000~YAAQFGvcF/h6NI6RAQAAQ0LbnxihfgqFNYP3IpvpE1L21BGFOeWSVckE/0fkcoJDtxiZtsWp8p7tyCpvau2XhGVuMLADzIibWGZwsqkFVaT9i75PYj0S2nd9kGv6lHjZsw3d2g6TZ1KduTgMRh9jo0izdRWtDksM7ahEX/ozhmdPuZ9/orIIhvPKjghO3Km83Vbnl9oVQq+PDyOum195Kzcj0Ti5g6rg2ebXHK7XrMdVgFeiD5za3jYnv9wSPIGrE51iYdtBloE+XBqr3rz7xsZsta3he50z0ULwDWJUIXjZ/H3Ppi3pNWAytESVSLDjJUQ9qlAwrKZHR4QQvT3Gb7D4QmDIjFIgDjicQqgPTRYot5PPxLyXnw==; Domain=.ups.com; Path=/; Expires=Thu, 29 Aug 2024 22:37:12 GMT; Max-Age=7200"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"validTrackingNumbers\": [\n        \"1ZCIETST0111111114\",\n        \"1ZCIETST0422222228\"\n    ],\n    \"invalidTrackingNumbers\": []\n}"
+        }
+      ]
+    }
+  ]
+}

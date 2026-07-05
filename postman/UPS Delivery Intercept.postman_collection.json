@@ -1,0 +1,216 @@
+{
+  "info": {
+    "_postman_id": "f2409ef1-39c9-4f4a-a509-a3f860068ff4",
+    "name": "UPS Delivery Intercept",
+    "description": "Get control over your shipments with automated submission of delivery intercept requests.\n\nVisit the full [UPS Delivery Intercept Documentation](https://developer.ups.com/api/reference?api=deliveryintercept) for more details!\n\nYou can also view our [Delivery Intercept Product Information](https://developer.ups.com/api/reference/deliveryintercept/product-info) to see what this API integration can do for you.\n\nThis is a premium API offering that incurs cost on API usage, and is currently only available for our US-based subscribers.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-f2409ef1-39c9-4f4a-a509-a3f860068ff4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Delivery Intercept Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "transId",
+            "value": "SIIWillcall",
+            "type": "text"
+          },
+          {
+            "key": "transactionSrc",
+            "value": "string",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"clientId\": \"XOLT\",\r\n    \"transactionId\": \"tm241ea77\",\r\n    \"source\": \"72\",\r\n    \"loc\": \"en_US\",\r\n    \"addressToken\": \"e951ee064b46a43f6a17bc930e046f2a\",\r\n    \"clientIP\": \"10.9.65.169\",\r\n    \"trackingNumber\": \"1Z1144YY0125887968\",\r\n    \"infoNoticeNumber\": \"952895106203\",\r\n    \"requestType\": \"UFD\",\r\n    \"requesterContactInfo\": {\r\n        \"name\": \"John A\",\r\n        \"telephone\": \"+17899977222\",\r\n        \"phoneExt\": \"+1\",\r\n        \"emailAddress\": \"aups@ups.com\",\r\n        \"altTelephone\": \"+19886432748\",\r\n        \"altPhoneExt\": \"+12\",\r\n        \"displayPhoneNumber\": true\r\n    },\r\n    \"ratingRequest\": [\r\n        {\r\n            \"trackingNumber\": \"1Z1144YY0125887968\",\r\n            \"cdwIndicator\": false,\r\n            \"upgradeToGroundCharges\": false\r\n        }\r\n    ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/deliverychange/v2/charges/1ZA2F8810719086435",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "deliverychange",
+            "v2",
+            "charges",
+            "1ZA2F8810719086435"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Delivery Intercept Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"clientId\": \"XOLT\",\r\n    \"transactionId\": \"tm241ea77\",\r\n    \"source\": \"72\",\r\n    \"loc\": \"en_US\",\r\n    \"addressToken\": \"e951ee064b46a43f6a17bc930e046f2a\",\r\n    \"clientIP\": \"10.9.65.169\",\r\n    \"trackingNumber\": \"1Z1144YY0125887968\",\r\n    \"infoNoticeNumber\": \"952895106203\",\r\n    \"requestType\": \"UFD\",\r\n    \"requesterContactInfo\": {\r\n        \"name\": \"John A\",\r\n        \"telephone\": \"+17899977222\",\r\n        \"phoneExt\": \"+1\",\r\n        \"emailAddress\": \"aups@ups.com\",\r\n        \"altTelephone\": \"+19886432748\",\r\n        \"altPhoneExt\": \"+12\",\r\n        \"displayPhoneNumber\": true\r\n    },\r\n    \"ratingRequest\": [\r\n        {\r\n            \"trackingNumber\": \"1Z1144YY0125887968\",\r\n            \"cdwIndicator\": false,\r\n            \"upgradeToGroundCharges\": false\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/api/deliverychange/v2/charges/1ZA2F8810719086435",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "deliverychange",
+                "v2",
+                "charges",
+                "1ZA2F8810719086435"
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "errorcode",
+              "value": "250002"
+            },
+            {
+              "key": "errordescription",
+              "value": "Invalid Authentication Information"
+            },
+            {
+              "key": "x-frame-options",
+              "value": "DENY"
+            },
+            {
+              "key": "x-content-type-options",
+              "value": "nosniff"
+            },
+            {
+              "key": "x-xss-protection",
+              "value": "1; mode=block"
+            },
+            {
+              "key": "Access-Control-Max-Age",
+              "value": "600"
+            },
+            {
+              "key": "x-request-id",
+              "value": "9ec4fe69-5144-44ee-86c5-5864f82a21e0"
+            },
+            {
+              "key": "Content-Length",
+              "value": "91"
+            },
+            {
+              "key": "Expires",
+              "value": "Thu, 29 Aug 2024 21:02:27 GMT"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "max-age=0, no-cache, no-store"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Date",
+              "value": "Thu, 29 Aug 2024 21:02:27 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "cdn-cache; desc=MISS"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "edge; dur=11"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "origin; dur=35"
+            },
+            {
+              "key": "Server-Timing",
+              "value": "ak_p; desc=\"1724965347874_400321032_208237120_4590_9160_2_7_-\";dur=1"
+            },
+            {
+              "key": "ak-grn-1",
+              "value": "0.086adc17.1724965347.c697240"
+            },
+            {
+              "key": "Strict-Transport-Security",
+              "value": "max-age=31536000 ; includeSubDomains"
+            },
+            {
+              "key": "Set-Cookie",
+              "value": "bm_sv=0F474663506FC1F5CE4BEECD7F2EA1FE~YAAQCGrcF0nSyJqRAQAAYWLynxiDVNaZJJYwmkiyXfhf/ceMLmOPhJ5vXIDe7bt626uVqAr77DAi/2kjhzu2eJb5KpEE6K5YRs0YYBJhUDiGwyZdFB92g24nPMOy/MT8POP+Og9jRol9q8c+wGuhcR7HPic7zmsaOXxhKuU/CG2QosGnfooapFub14ipERkWkcqEHniOIWBldzQ2dFWiHCd7GBod87TKRts1w5NYxnT5EsUW1tYh9bDkQUT4~1; Domain=.ups.com; Path=/; Expires=Thu, 29 Aug 2024 22:50:16 GMT; Max-Age=6469; Secure"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"transactionId\": \"SIIWillcall\",\n  \"statusCode\": \"000\",\n  \"statusMsg\": \"Success\",\n  \"success\": true,\n  \"chargeInfo\": [\n    {\n      \"chargeCurrency\": \"USD\"\n    }\n  ],\n  \"mycagreementUptoDate\": false\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "addTokenTo",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

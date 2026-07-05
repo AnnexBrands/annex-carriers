@@ -1,0 +1,186 @@
+{
+  "info": {
+    "_postman_id": "44cb52ab-0a54-46a2-ad40-b299c8c0b2fb",
+    "name": "UPS Time In Transit",
+    "description": "Gives customer's the ability to determine the delivery time for UPS services.\n\nVisit the full [UPS Time In Transit Documentation](https://developer.ups.com/api/reference?loc=en_US#tag/TimeInTransit_other) for more details!",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25334",
+    "_collection_link": "https://go.postman.co/collection/29542085-44cb52ab-0a54-46a2-ad40-b299c8c0b2fb?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Time In Transit Example Request",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "transId",
+            "value": "",
+            "description": "An identifier unique to the request. Length 32",
+            "type": "text"
+          },
+          {
+            "key": "transactionSrc",
+            "value": "testing",
+            "description": "An identifier unique to the request. Length 32",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"originCountryCode\": \"DE\",\r\n    \"originStateProvince\": \"\",\r\n    \"originCityName\": \"\",\r\n    \"originTownName\": \"\",\r\n    \"originPostalCode\": \"10703\",\r\n    \"destinationCountryCode\": \"US\",\r\n    \"destinationStateProvince\": \"NH\",\r\n    \"destinationCityName\": \"MANCHESTER\",\r\n    \"destinationTownName\": \"\",\r\n    \"destinationPostalCode\": \"03104\",\r\n    \"weight\": \"10.5\",\r\n    \"weightUnitOfMeasure\": \"LBS\",\r\n    \"shipmentContentsValue\": \"10.5\",\r\n    \"shipmentContentsCurrencyCode\": \"USD\",\r\n    \"billType\": \"03\",\r\n    \"shipDate\": \"2019-05-01\",\r\n    \"shipTime\": \"\",\r\n    \"residentialIndicator\": \"\",\r\n    \"avvFlag\": true,\r\n    \"numberOfPackages\": \"1\"\r\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/shipments/:version/transittimes",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "shipments",
+            ":version",
+            "transittimes"
+          ],
+          "variable": [
+            {
+              "key": "version",
+              "value": "v1",
+              "description": "API Version"
+            }
+          ]
+        },
+        "description": "This HTTP POST request will return a list of services and the time those services will take to move a package from a given origin to a given destination. Package details provided will sometimes change what services are available for a given lane (origin-destination pair)."
+      },
+      "response": [
+        {
+          "name": "Time In Transit Success",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "transId",
+                "value": "",
+                "description": "An identifier unique to the request. Length 32",
+                "type": "text"
+              },
+              {
+                "key": "transactionSrc",
+                "value": "testing",
+                "description": "An identifier unique to the request. Length 32",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"originCountryCode\": \"DE\",\r\n    \"originStateProvince\": \"\",\r\n    \"originCityName\": \"\",\r\n    \"originTownName\": \"\",\r\n    \"originPostalCode\": \"10703\",\r\n    \"destinationCountryCode\": \"US\",\r\n    \"destinationStateProvince\": \"NH\",\r\n    \"destinationCityName\": \"MANCHESTER\",\r\n    \"destinationTownName\": \"\",\r\n    \"destinationPostalCode\": \"03104\",\r\n    \"weight\": \"10.5\",\r\n    \"weightUnitOfMeasure\": \"LBS\",\r\n    \"shipmentContentsValue\": \"10.5\",\r\n    \"shipmentContentsCurrencyCode\": \"USD\",\r\n    \"billType\": \"03\",\r\n    \"shipDate\": \"2019-05-01\",\r\n    \"shipTime\": \"\",\r\n    \"residentialIndicator\": \"\",\r\n    \"avvFlag\": true,\r\n    \"numberOfPackages\": \"1\"\r\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/shipments/:version/transittimes",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "shipments",
+                ":version",
+                "transittimes"
+              ],
+              "variable": [
+                {
+                  "key": "version",
+                  "value": "v1",
+                  "description": "API Version"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "name": "Content-Type",
+              "value": "application/json",
+              "description": "",
+              "type": "text"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n    \"emsResponse\": {\n        \"shipDate\": \"2024-02-01\",\n        \"shipTime\": \"11:15:43\",\n        \"billType\": \"03\",\n        \"dutyType\": \"09\",\n        \"residentialIndicator\": \"02\",\n        \"destinationCityName\": \"MANCHESTER\",\n        \"destinationCountryName\": \"UNITED STATES\",\n        \"destinationCountryCode\": \"US\",\n        \"destinationPostalCode\": \"03104\",\n        \"destinationPostalCodeLow\": \"03104\",\n        \"destinationPostalCodeHigh\": \"03104\",\n        \"destinationStateProvince\": \"NH\",\n        \"originCityName\": \"BERLIN\",\n        \"originCountryName\": \"GERMANY\",\n        \"originCountryCode\": \"DE\",\n        \"originPostalCode\": \"10703\",\n        \"originStateProvince\": \"BERLIN\",\n        \"shipmentContentsCurrencyCode\": \"USD\",\n        \"weightUnitOfMeasure\": \"LBS\",\n        \"weight\": \"10.5\",\n        \"shipmentContentsValue\": \"10.5\",\n        \"guaranteeSuspended\": false,\n        \"numberOfServices\": 6,\n        \"services\": [\n            {\n                \"serviceLevel\": \"01\",\n                \"serviceLevelDescription\": \"UPS Worldwide Express\",\n                \"businessTransitDays\": 2,\n                \"totalTransitDays\": 4,\n                \"deliveryDate\": \"2024-02-03\",\n                \"deliveryTime\": \"12:00:00\",\n                \"deliveryDayOfWeek\": \"SAT\",\n                \"nextDayPickupIndicator\": \"0\",\n                \"saturdayPickupIndicator\": \"0\",\n                \"saturdayDeliveryIndicator\": \"1\",\n                \"saturdayDeliveryDate\": \"2024-02-03\",\n                \"saturdayDeliveryTime\": \"12:00:00\",\n                \"guaranteeIndicator\": \"1\",\n                \"restDaysCount\": 2,\n                \"holidayCount\": 0,\n                \"delayCount\": 0,\n                \"commitTime\": \"12:00:00\",\n                \"serviceRemarksText\": \"SATURDAY DELIVERY EXTRA CHARGE10KG & 25KG BOX SRVC AVAIL                                                \",\n                \"shipDate\": \"2024-02-01\",\n                \"pickupTime\": \"20:00:00\",\n                \"pickupDate\": \"2024-02-01\",\n                \"poddate\": \"2024-02-06\",\n                \"poddays\": 1,\n                \"cstccutoffTime\": \"18:00:00\"\n            },\n            {\n                \"serviceLevel\": \"21\",\n                \"serviceLevelDescription\": \"UPS Express Plus®\",\n                \"businessTransitDays\": 2,\n                \"totalTransitDays\": 4,\n                \"deliveryDate\": \"2024-02-05\",\n                \"deliveryTime\": \"08:00:00\",\n                \"deliveryDayOfWeek\": \"MON\",\n                \"nextDayPickupIndicator\": \"0\",\n                \"saturdayPickupIndicator\": \"0\",\n                \"saturdayDeliveryIndicator\": \"0\",\n                \"saturdayDeliveryTime\": \"00:00:00\",\n                \"guaranteeIndicator\": \"1\",\n                \"restDaysCount\": 2,\n                \"holidayCount\": 0,\n                \"delayCount\": 0,\n                \"commitTime\": \"08:00:00\",\n                \"shipDate\": \"2024-02-01\",\n                \"pickupTime\": \"20:00:00\",\n                \"pickupDate\": \"2024-02-01\",\n                \"poddate\": \"2024-02-06\",\n                \"poddays\": 1,\n                \"cstccutoffTime\": \"18:00:00\"\n            },\n            {\n                \"serviceLevel\": \"01\",\n                \"serviceLevelDescription\": \"UPS Express®\",\n                \"businessTransitDays\": 2,\n                \"totalTransitDays\": 4,\n                \"deliveryDate\": \"2024-02-05\",\n                \"deliveryTime\": \"10:30:00\",\n                \"deliveryDayOfWeek\": \"MON\",\n                \"nextDayPickupIndicator\": \"0\",\n                \"saturdayPickupIndicator\": \"0\",\n                \"saturdayDeliveryIndicator\": \"0\",\n                \"sundayDeliveryIndicator\": \"0\",\n                \"guaranteeIndicator\": \"1\",\n                \"restDaysCount\": 2,\n                \"holidayCount\": 0,\n                \"delayCount\": 0,\n                \"commitTime\": \"10:30:00\",\n                \"serviceRemarksText\": \"SATURDAY DELIVERY EXTRA CHARGE10KG & 25KG BOX SRVC AVAIL                                                \",\n                \"shipDate\": \"2024-02-01\",\n                \"pickupTime\": \"20:00:00\",\n                \"pickupDate\": \"2024-02-01\",\n                \"poddate\": \"2024-02-06\",\n                \"poddays\": 1,\n                \"cstccutoffTime\": \"18:00:00\"\n            },\n            {\n                \"serviceLevel\": \"28\",\n                \"serviceLevelDescription\": \"UPS Express Saver\",\n                \"businessTransitDays\": 2,\n                \"totalTransitDays\": 4,\n                \"deliveryDate\": \"2024-02-05\",\n                \"deliveryTime\": \"23:30:00\",\n                \"deliveryDayOfWeek\": \"MON\",\n                \"nextDayPickupIndicator\": \"0\",\n                \"saturdayPickupIndicator\": \"0\",\n                \"saturdayDeliveryIndicator\": \"0\",\n                \"saturdayDeliveryTime\": \"00:00:00\",\n                \"guaranteeIndicator\": \"1\",\n                \"restDaysCount\": 2,\n                \"holidayCount\": 0,\n                \"delayCount\": 0,\n                \"commitTime\": \"23:30:00\",\n                \"serviceRemarksText\": \"10KG & 25KG BOX SRVC AVAIL                                                \",\n                \"shipDate\": \"2024-02-01\",\n                \"pickupTime\": \"20:00:00\",\n                \"pickupDate\": \"2024-02-01\",\n                \"poddate\": \"2024-02-06\",\n                \"poddays\": 1,\n                \"cstccutoffTime\": \"18:00:00\"\n            },\n            {\n                \"serviceLevel\": \"29\",\n                \"serviceLevelDescription\": \"UPS Worldwide Express Freight\",\n                \"businessTransitDays\": 2,\n                \"totalTransitDays\": 4,\n                \"deliveryDate\": \"2024-02-05\",\n                \"deliveryTime\": \"23:30:00\",\n                \"deliveryDayOfWeek\": \"MON\",\n                \"nextDayPickupIndicator\": \"0\",\n                \"saturdayPickupIndicator\": \"0\",\n                \"saturdayDeliveryIndicator\": \"0\",\n                \"saturdayDeliveryTime\": \"00:00:00\",\n                \"guaranteeIndicator\": \"1\",\n                \"restDaysCount\": 2,\n                \"holidayCount\": 0,\n                \"delayCount\": 0,\n                \"commitTime\": \"23:30:00\",\n                \"shipDate\": \"2024-02-01\",\n                \"pickupTime\": \"17:00:00\",\n                \"pickupDate\": \"2024-02-01\",\n                \"poddate\": \"2024-02-06\",\n                \"poddays\": 1,\n                \"cstccutoffTime\": \"15:00:00\"\n            },\n            {\n                \"serviceLevel\": \"05\",\n                \"serviceLevelDescription\": \"UPS Expedited\",\n                \"businessTransitDays\": 4,\n                \"totalTransitDays\": 6,\n                \"deliveryDate\": \"2024-02-07\",\n                \"deliveryTime\": \"23:30:00\",\n                \"deliveryDayOfWeek\": \"WED\",\n                \"nextDayPickupIndicator\": \"0\",\n                \"saturdayPickupIndicator\": \"0\",\n                \"saturdayDeliveryIndicator\": \"0\",\n                \"saturdayDeliveryTime\": \"00:00:00\",\n                \"guaranteeIndicator\": \"0\",\n                \"restDaysCount\": 2,\n                \"holidayCount\": 0,\n                \"delayCount\": 0,\n                \"commitTime\": \"23:30:00\",\n                \"serviceRemarksText\": \"IF GUARANTEE IS NO, THEN GUARANTEE WILL APPLY FOR US PAYERS ONLY          \",\n                \"shipDate\": \"2024-02-01\",\n                \"pickupTime\": \"20:00:00\",\n                \"pickupDate\": \"2024-02-01\",\n                \"poddate\": \"2024-02-08\",\n                \"poddays\": 1,\n                \"cstccutoffTime\": \"18:00:00\"\n            }\n        ]\n    }\n}"
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearer_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// if (Number(pm.globals.get(\"expiry_time\")) < (new Date().getTime() + 10000)) {",
+          "//     const jwtt = {",
+          "//     url: `${pm.collectionVariables.get(\"base_url\")}security/v1/oauth/token`,",
+          "//     method: 'POST',",
+          "//     header: {",
+          "//         'Content-Type': 'application/x-www-form-urlencoded',",
+          "//         'Authorization': \"Basic \" + btoa(pm.globals.get(\"client_id\") + \":\" + pm.globals.get(\"client_secret\"))",
+          "//     },",
+          "//     body: {",
+          "//         mode: 'urlencoded',",
+          "//         urlencoded: [",
+          "//             {key: 'grant_type', value: 'client_credentials'},",
+          "//             {key: 'scope', value: '<scope details>'}",
+          "//         ]",
+          "//     }",
+          "// }",
+          "// pm.sendRequest(jwtt, (err, res) => {",
+          "//         if (err != null) {",
+          "//             throw new Error(\"Access Denied.\");",
+          "//         } else {",
+          "//             pm.globals.set(\"bearer_token\", res.json().access_token);",
+          "//             pm.globals.set(\"expiry_time\", Number(res.json().issued_at) + (Number(res.json().expires_in) * 1000));",
+          "//         }",
+          "//     })",
+          "// }"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://wwwcie.ups.com/",
+      "type": "string"
+    }
+  ]
+}
