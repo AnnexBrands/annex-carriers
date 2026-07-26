@@ -65,7 +65,8 @@ class FedExClient(BaseClient):
     validation_error_class = FedExValidationError
     response_class = FedExResponse
     transaction_id_headers = ("x-customer-transaction-id", "x-fedex-transaction-id")
-    # FedEx puts its error array at the top level of the body.
+    # FedEx puts its error array at the top level; "output" is checked as a
+    # fallback because some families report alerts there instead.
     error_envelope_keys = ("output",)
 
     config: FedExConfig
@@ -167,6 +168,14 @@ class FedExClient(BaseClient):
     def validate_addresses(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
         return self.addresses.resolve(payload, **kwargs)
 
+    def validate_address(self, address: JsonObject, **kwargs: Any) -> FedExResponse:
+        return self.addresses.validate(address, **kwargs)
+
+    def rate_from_ship_payload(
+        self, ship_payload: JsonObject, **kwargs: Any
+    ) -> FedExResponse:
+        return self.rate.from_ship_payload(ship_payload, **kwargs)
+
     def find_locations(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
         return self.locations.search(payload, **kwargs)
 
@@ -178,6 +187,17 @@ class FedExClient(BaseClient):
 
     def cancel_pickup(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
         return self.pickups.cancel(payload, **kwargs)
+
+    def check_pickup_availability(
+        self, pickup_address: JsonObject, **kwargs: Any
+    ) -> FedExResponse:
+        return self.pickups.check_availability(pickup_address, **kwargs)
+
+    def schedule_pickup(self, **kwargs: Any) -> FedExResponse:
+        return self.pickups.schedule(**kwargs)
+
+    def cancel_scheduled_pickup(self, **kwargs: Any) -> FedExResponse:
+        return self.pickups.cancel_scheduled(**kwargs)
 
     def upload_etd_document(
         self, document: JsonObject, attachment: FileSource, **kwargs: Any

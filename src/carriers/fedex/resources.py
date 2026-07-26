@@ -15,6 +15,13 @@ from urllib.parse import quote
 from .._core.multipart import encode_multipart_form_data
 from .._core.resources import Resource
 from . import endpoints
+from .addresses import build_address_validation_request
+from .pickups import (
+    build_pickup_availability_request,
+    build_pickup_cancel_request,
+    build_pickup_request,
+)
+from .rates import rate_request_from_ship_payload
 from .documents import (
     COMMERCIAL_INVOICE,
     POSTSHIPMENT_WORKFLOW,
@@ -73,6 +80,20 @@ class RateResource(Resource):
     def quotes(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
         return self._client.post(endpoints.RATE_QUOTES, payload, **kwargs)
 
+    def from_ship_payload(
+        self,
+        ship_payload: JsonObject,
+        *,
+        all_services: bool = False,
+        **kwargs: Any,
+    ) -> FedExResponse:
+        """Rate the exact payload that will be sent to ``ship.create``."""
+
+        return self.quotes(
+            rate_request_from_ship_payload(ship_payload, all_services=all_services),
+            **kwargs,
+        )
+
     def freight_quotes(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
         """LTL freight rates. See ``endpoints.UNVERIFIED``."""
         return self._client.post(endpoints.RATE_FREIGHT_QUOTES, payload, **kwargs)
@@ -127,6 +148,10 @@ class AddressesResource(Resource):
     def resolve(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
         return self._client.post(endpoints.ADDRESS_RESOLVE, payload, **kwargs)
 
+    def validate(self, address: JsonObject, **kwargs: Any) -> FedExResponse:
+        """Resolve a single Ship-shaped address dict."""
+        return self.resolve(build_address_validation_request([address]), **kwargs)
+
     def validate_postal(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
         """Postal code validation. See ``endpoints.UNVERIFIED``."""
         return self._client.post(endpoints.POSTAL_VALIDATE, payload, **kwargs)
@@ -140,7 +165,11 @@ class LocationsResource(Resource):
 
 
 class PickupsResource(Resource):
-    """Pickup API."""
+    """Pickup API.
+
+    Express (``FDXE``) and Ground (``FDXG``) are separate pickup networks —
+    the carrier code must match the service being shipped.
+    """
 
     def availability(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
         return self._client.post(endpoints.PICKUP_AVAILABILITY, payload, **kwargs)
@@ -149,7 +178,82 @@ class PickupsResource(Resource):
         return self._client.post(endpoints.PICKUP_CREATE, payload, **kwargs)
 
     def cancel(self, payload: JsonObject, **kwargs: Any) -> FedExResponse:
-        return self._client.post(endpoints.PICKUP_CANCEL, payload, **kwargs)
+        """Cancel a pickup.
+
+        PUT, not POST — FedEx answers POST with METHOD.NOT.ALLOWED.ERROR.
+        """
+        return self._client.put(endpoints.PICKUP_CANCEL, payload, **kwargs)
+
+    def check_availability(
+        self,
+        pickup_address: JsonObject,
+        *,
+        carriers: Sequence[str] = ("FDXE",),
+        dispatch_date: Optional[str] = None,
+        package_ready_time: str = "09:00:00",
+        customer_close_time: str = "17:00:00",
+        country_relationship: str = "DOMESTIC",
+        **kwargs: Any,
+    ) -> FedExResponse:
+        return self.availability(
+            build_pickup_availability_request(
+                pickup_address,
+                carriers=carriers,
+                dispatch_date=dispatch_date,
+                package_ready_time=package_ready_time,
+                customer_close_time=customer_close_time,
+                country_relationship=country_relationship,
+            ),
+            **kwargs,
+        )
+
+    def schedule(
+        self,
+        *,
+        pickup_contact: JsonObject,
+        pickup_address: JsonObject,
+        ready_timestamp: str,
+        customer_close_time: str = "17:00:00",
+        carrier_code: str = "FDXE",
+        package_count: Optional[int] = None,
+        total_weight_lb: Optional[float] = None,
+        remarks: Optional[str] = None,
+        **kwargs: Any,
+    ) -> FedExResponse:
+        return self.create(
+            build_pickup_request(
+                self.config.account_number or "",
+                pickup_contact=pickup_contact,
+                pickup_address=pickup_address,
+                ready_timestamp=ready_timestamp,
+                customer_close_time=customer_close_time,
+                carrier_code=carrier_code,
+                package_count=package_count,
+                total_weight_lb=total_weight_lb,
+                remarks=remarks,
+            ),
+            **kwargs,
+        )
+
+    def cancel_scheduled(
+        self,
+        *,
+        confirmation_code: str,
+        scheduled_date: str,
+        carrier_code: str = "FDXE",
+        location: Optional[str] = None,
+        **kwargs: Any,
+    ) -> FedExResponse:
+        return self.cancel(
+            build_pickup_cancel_request(
+                self.config.account_number or "",
+                confirmation_code=confirmation_code,
+                scheduled_date=scheduled_date,
+                carrier_code=carrier_code,
+                location=location,
+            ),
+            **kwargs,
+        )
 
 
 class AvailabilityResource(Resource):

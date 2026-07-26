@@ -371,6 +371,23 @@ class ConfigTests(unittest.TestCase):
         values = load_env_file(path)
         self.assertEqual(values, {"A": "one", "B": "two"})
 
+    def test_repr_never_exposes_secrets_for_either_carrier(self):
+        # A config reaches logs and tracebacks; the secret must not ride along.
+        ups = repr(UPSConfig(client_id="cid-visible", client_secret="SECRET-VALUE"))
+        self.assertNotIn("SECRET-VALUE", ups)
+        self.assertIn("cid-visible", ups)
+
+        fedex = repr(
+            FedExConfig(
+                client_id="cid-visible",
+                client_secret="SECRET-VALUE",
+                child_secret="CHILD-SECRET",
+            )
+        )
+        self.assertNotIn("SECRET-VALUE", fedex)
+        self.assertNotIn("CHILD-SECRET", fedex)
+        self.assertIn("cid-visible", fedex)
+
     def test_ups_maps_test_and_sandbox_to_cie(self):
         import os
 

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 import uuid
 from threading import RLock
 from typing import Any, Dict, Mapping, MutableMapping, Optional, Sequence, Tuple, Type
@@ -91,8 +92,6 @@ class BaseClient:
         """
 
         with self._lock:
-            import time
-
             if (
                 not force_refresh
                 and self._token

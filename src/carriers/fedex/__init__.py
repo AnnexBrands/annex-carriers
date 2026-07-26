@@ -6,6 +6,11 @@ and it never imports another carrier.
 """
 from __future__ import annotations
 
+from .addresses import (
+    build_address_validation_request,
+    extract_resolved_addresses,
+    first_resolved_address,
+)
 from .client import FedExClient
 from .config import (
     PRODUCTION_BASE_URL,
@@ -35,6 +40,17 @@ from .errors import (
     FedExValidationError,
 )
 from .models import AccessToken, FedExResponse
+from .pickups import (
+    build_pickup_availability_request,
+    build_pickup_cancel_request,
+    build_pickup_request,
+    extract_pickup_confirmation,
+)
+from .rates import (
+    build_rate_request,
+    extract_rate_options,
+    rate_request_from_ship_payload,
+)
 
 __all__ = [
     "AccessToken",
@@ -57,8 +73,18 @@ __all__ = [
     "SANDBOX_DOCUMENT_BASE_URL",
     "UploadAttachment",
     "attach_pre_shipment_documents",
+    "build_address_validation_request",
     "build_etd_document",
+    "build_pickup_availability_request",
+    "build_pickup_cancel_request",
+    "build_pickup_request",
+    "build_rate_request",
+    "extract_pickup_confirmation",
+    "extract_rate_options",
+    "extract_resolved_addresses",
     "extract_uploaded_document_id",
+    "first_resolved_address",
+    "rate_request_from_ship_payload",
     "read_upload_attachment",
     "uploaded_document_reference",
 ]

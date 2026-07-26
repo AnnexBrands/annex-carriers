@@ -84,6 +84,8 @@ client = UPSClient(UPSConfig(
 
 Tokens are cached in memory behind a lock and refreshed 60s before expiry.
 **Nothing is ever written to disk** — no token cache file to leak into a repo.
+Both configs carry `repr=False` on their secrets, so a logged or raised config
+never prints them.
 
 ## API surface
 
@@ -112,17 +114,17 @@ All nineteen Postman collections in `docs/postman/ups/` are reachable.
 The client-credentials grant is automatic — every authenticated call fetches
 and caches its own token. `client.oauth` is only for the interactive flow.
 
-### FedEx — 33 methods across 8 namespaces
+### FedEx — 38 methods across 8 namespaces
 
 | Namespace | Covers | Key methods |
 |---|---|---|
 | `client.ship` | Ship API | `create`, `cancel`, `validate`, `results`, `create_tag`, `cancel_tag` |
-| `client.rate` | Rate API | `quotes`, `freight_quotes` |
+| `client.rate` | Rate API | `quotes`, `from_ship_payload`, `freight_quotes` |
 | `client.track` | Track API | `by_tracking_numbers`, `by_reference`, `by_tcn`, `documents`, `notifications` |
 | `client.documents` | Trade Documents Upload (ETD) | `upload_pre_shipment`, `upload_post_shipment`, `upload_images`, `reference`, `attach_to_shipment` |
-| `client.addresses` | Address Validation | `resolve`, `validate_postal` |
+| `client.addresses` | Address Validation | `resolve`, `validate`, `validate_postal` |
 | `client.locations` | Location API | `search` |
-| `client.pickups` | Pickup API | `availability`, `create`, `cancel` |
+| `client.pickups` | Pickup API | `check_availability`, `schedule`, `cancel_scheduled`, `availability`, `create`, `cancel` |
 | `client.availability` | Service Availability | `service_options`, `transit_times` |
 
 **Endpoint provenance.** `carriers/fedex/endpoints.py` tags every path: `[spec]`
@@ -133,12 +135,12 @@ exercised against FedEx, `[portal]` taken from FedEx's published catalog but
 before production use. Correcting one is a single-line change with no
 call-site churn.
 
-Two `[spec]` corrections landed in 0.2, both previously untested:
+One `[spec]` correction landed in 0.2 and had no test coverage before:
+validate is `POST /ship/v1/shipments/packages/validate`, not
+`/ship/v1/shipments/validate`.
 
-| | 0.1 | 0.2 (per `docs/specs/fedex/ship.json`) |
-|---|---|---|
-| Cancel shipment | `POST /ship/v1/shipments/cancel` | `PUT /ship/v1/shipments/cancel` |
-| Validate shipment | `POST /ship/v1/shipments/validate` | `POST /ship/v1/shipments/packages/validate` |
+FedEx cancels are `PUT`, not `POST` — both `ship.cancel` and `pickups.cancel`
+(`POST` answers `METHOD.NOT.ALLOWED.ERROR`).
 
 ### ETD: pre-shipment vs post-shipment
 
@@ -217,6 +219,13 @@ from carriers.ups import (
     extract_package_status,
     extract_candidates,              # XAV suggested corrections
 )
+from carriers.fedex import (
+    rate_request_from_ship_payload,  # same idea, FedEx's shape
+    build_pickup_request,
+    extract_rate_options,            # ACCOUNT rate preferred over LIST
+    first_resolved_address,          # DPV/match distilled to a boolean
+    extract_pickup_confirmation,
+)
 ```
 
 The extractors handle UPS's single-object collapse, where a one-element array
@@ -239,7 +248,7 @@ python -m unittest discover -s tests -t . -p "test_*.py"
 pytest
 ```
 
-133 tests, no network. `tests/core/` covers the shared layer once — content
+141 tests, no network. `tests/core/` covers the shared layer once — content
 decoding, retry policy, error mapping, token caching, multipart, config
 resolution — which is the point of the merge.
 

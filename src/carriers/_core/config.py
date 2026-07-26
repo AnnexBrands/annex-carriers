@@ -7,7 +7,7 @@ environment literals they accept. That resolution lives here once.
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Optional, Union
 
@@ -23,7 +23,8 @@ class BaseConfig:
     """
 
     client_id: str
-    client_secret: str
+    # Secrets carry repr=False so a logged or raised config never prints them.
+    client_secret: str = field(repr=False)
     account_number: Optional[str] = None
     base_url: Optional[str] = None
     timeout: float = 30.0

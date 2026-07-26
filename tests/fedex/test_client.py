@@ -62,6 +62,17 @@ class FedExClientTests(unittest.TestCase):
             account_number="123456789",
         )
 
+    def test_repr_never_exposes_secrets(self):
+        config = FedExConfig(
+            client_id="cid-visible",
+            client_secret="SECRET-VALUE",
+            child_secret="CHILD-SECRET",
+        )
+        shown = repr(config)
+        self.assertNotIn("SECRET-VALUE", shown)
+        self.assertNotIn("CHILD-SECRET", shown)
+        self.assertIn("cid-visible", shown)
+
     def test_oauth_token_is_requested_and_cached(self):
         transport = FakeTransport(
             [
@@ -176,8 +187,7 @@ class FedExClientTests(unittest.TestCase):
         transport = FakeTransport(
             [HttpResponse(500, {"Content-Type": "text/plain"}, "server exploded")]
         )
-        # Retry is exercised in tests/core; here we want the raise, not
-        # three attempts against a one-response transport.
+        # Retry is exercised in tests/core; here we want the raise.
         client = FedExClient(
             self.config(), transport=transport, retry_policy=RetryPolicy.disabled()
         )
@@ -289,6 +299,193 @@ class FedExClientTests(unittest.TestCase):
             ),
             "090493e181586308",
         )
+
+    def test_cancel_endpoints_use_put(self):
+        transport = FakeTransport(
+            [
+                json_response(
+                    200,
+                    {"access_token": "token-1", "token_type": "bearer",
+                     "expires_in": 3600, "scope": "CXS"},
+                ),
+                json_response(200, {"output": {"cancelledShipment": True}}),
+                json_response(200, {"output": {"pickupConfirmationCode": "1"}}),
+            ]
+        )
+        client = FedExClient(self.config(), transport=transport)
+
+        client.cancel_shipment({"trackingNumber": "794000000000"})
+        client.cancel_pickup({"pickupConfirmationCode": "1"})
+
+        ship_cancel, pickup_cancel = transport.requests[1:]
+        self.assertEqual(ship_cancel["method"], "PUT")
+        self.assertEqual(ship_cancel["url"], "https://example.test/ship/v1/shipments/cancel")
+        self.assertEqual(pickup_cancel["method"], "PUT")
+        self.assertEqual(pickup_cancel["url"], "https://example.test/pickup/v1/pickups/cancel")
+
+    def _token(self):
+        return json_response(
+            200,
+            {"access_token": "token-1", "token_type": "bearer",
+             "expires_in": 3600, "scope": "CXS"},
+        )
+
+    def _ship_payload(self):
+        return {
+            "labelResponseOptions": "URL_ONLY",
+            "accountNumber": {"value": "123456789"},
+            "requestedShipment": {
+                "serviceType": "FEDEX_GROUND",
+                "shipper": {"address": {"postalCode": "30062", "countryCode": "US"}},
+                "recipients": [{"address": {"postalCode": "M4N 3L6", "countryCode": "CA"}}],
+                "labelSpecification": {"imageType": "PDF"},
+                "shipmentSpecialServices": {
+                    "specialServiceTypes": ["ELECTRONIC_TRADE_DOCUMENTS"],
+                    "etdDetail": {"attachedDocuments": [{"documentId": "abc"}]},
+                },
+                "requestedPackageLineItems": [{"weight": {"units": "LB", "value": 7}}],
+            },
+        }
+
+    def test_rate_request_derived_from_ship_payload(self):
+        from carriers.fedex import rate_request_from_ship_payload
+
+        ship = self._ship_payload()
+        rate = rate_request_from_ship_payload(ship)
+
+        shipment = rate["requestedShipment"]
+        self.assertEqual(rate["accountNumber"], {"value": "123456789"})
+        self.assertEqual(shipment["recipient"]["address"]["postalCode"], "M4N 3L6")
+        self.assertNotIn("recipients", shipment)
+        self.assertNotIn("labelSpecification", shipment)
+        self.assertNotIn("etdDetail", shipment.get("shipmentSpecialServices", {}))
+        self.assertEqual(shipment["rateRequestType"], ["ACCOUNT"])
+        self.assertEqual(shipment["serviceType"], "FEDEX_GROUND")
+        # service shopping drops the pinned service
+        self.assertNotIn(
+            "serviceType",
+            rate_request_from_ship_payload(ship, all_services=True)["requestedShipment"],
+        )
+        # the source payload is untouched
+        self.assertIn("recipients", ship["requestedShipment"])
+
+    def test_rate_from_ship_payload_posts_rate_quotes(self):
+        transport = FakeTransport(
+            [
+                self._token(),
+                json_response(
+                    200,
+                    {"output": {"rateReplyDetails": [
+                        {"serviceType": "FEDEX_GROUND", "serviceName": "FedEx Ground",
+                         "packagingType": "YOUR_PACKAGING",
+                         "ratedShipmentDetails": [
+                             {"rateType": "ACCOUNT", "totalNetCharge": 38.11, "currency": "USD"},
+                             {"rateType": "LIST", "totalNetCharge": 61.42, "currency": "USD"},
+                         ],
+                         "commit": {"transitDays": {"description": "8 business days"}}},
+                    ]}},
+                ),
+            ]
+        )
+        client = FedExClient(self.config(), transport=transport)
+
+        response = client.rate_from_ship_payload(self._ship_payload())
+
+        request = transport.requests[1]
+        self.assertEqual(request["method"], "POST")
+        self.assertEqual(request["url"], "https://example.test/rate/v1/rates/quotes")
+
+        from carriers.fedex import extract_rate_options
+
+        options = extract_rate_options(response.data)
+        self.assertEqual(len(options), 1)
+        self.assertEqual(options[0]["serviceType"], "FEDEX_GROUND")
+        self.assertEqual(options[0]["totalNetCharge"], 38.11)  # ACCOUNT preferred over LIST
+        self.assertEqual(options[0]["transitDays"], "8 business days")
+
+    def test_validate_address_resolves_and_parses(self):
+        transport = FakeTransport(
+            [
+                self._token(),
+                json_response(
+                    200,
+                    {"output": {"resolvedAddresses": [
+                        {"classification": "RESIDENTIAL",
+                         "streetLinesToken": ["22 BLYTH HILL RD"],
+                         "city": "TORONTO", "stateOrProvinceCode": "ON",
+                         "postalCode": "M4N 3L6", "countryCode": "CA",
+                         "attributes": {"Matched": "true"}},
+                    ]}},
+                ),
+            ]
+        )
+        client = FedExClient(self.config(), transport=transport)
+
+        response = client.validate_address(
+            {"streetLines": ["22 Blyth Hill Rd"], "city": "Toronto",
+             "stateOrProvinceCode": "ON", "postalCode": "M4N 3L6", "countryCode": "CA"}
+        )
+
+        request = transport.requests[1]
+        self.assertEqual(request["url"], "https://example.test/address/v1/addresses/resolve")
+        body = json.loads(request["body"].decode("utf-8"))
+        self.assertEqual(len(body["addressesToValidate"]), 1)
+
+        from carriers.fedex import first_resolved_address
+
+        resolved = first_resolved_address(response.data)
+        self.assertEqual(resolved["classification"], "RESIDENTIAL")
+        self.assertTrue(resolved["matched"])
+
+    def test_schedule_pickup_builds_payload_and_parses_confirmation(self):
+        transport = FakeTransport(
+            [
+                self._token(),
+                json_response(
+                    200,
+                    {"output": {"pickupConfirmationCode": "PU123", "location": "MARA",
+                                "message": "Pickup scheduled"}},
+                ),
+            ]
+        )
+        client = FedExClient(self.config(), transport=transport)
+
+        response = client.schedule_pickup(
+            pickup_contact={"personName": "Navis 23030GA", "phoneNumber": "4049997225"},
+            pickup_address={"streetLines": ["1061 Triad Ct", "Suite 6"], "city": "Marietta",
+                            "stateOrProvinceCode": "GA", "postalCode": "30062", "countryCode": "US"},
+            ready_timestamp="2026-07-06T09:00:00Z",
+            carrier_code="FDXG",
+            package_count=1,
+            total_weight_lb=7,
+        )
+
+        request = transport.requests[1]
+        self.assertEqual(request["url"], "https://example.test/pickup/v1/pickups")
+        body = json.loads(request["body"].decode("utf-8"))
+        self.assertEqual(body["associatedAccountNumber"], {"value": "123456789"})
+        self.assertEqual(body["carrierCode"], "FDXG")
+        self.assertEqual(body["totalWeight"], {"units": "LB", "value": 7.0})
+        self.assertEqual(
+            body["originDetail"]["pickupLocation"]["address"]["postalCode"], "30062"
+        )
+
+        from carriers.fedex import extract_pickup_confirmation
+
+        confirmation = extract_pickup_confirmation(response.data)
+        self.assertEqual(confirmation["confirmationCode"], "PU123")
+
+    def test_decode_response_body_handles_gzip(self):
+        import gzip
+
+        from carriers._core.transport import decode_response_body
+
+        body = json.dumps({"output": {"meta": {"docId": "abc"}}}).encode("utf-8")
+        compressed = gzip.compress(body)
+        # Honest header, mislabeled/missing header (magic-byte sniff), and plain.
+        self.assertEqual(decode_response_body(compressed, {"Content-Encoding": "gzip"}), body.decode())
+        self.assertEqual(decode_response_body(compressed, {}), body.decode())
+        self.assertEqual(decode_response_body(body, {}), body.decode())
 
     def _tmp_env(self, content):
         import tempfile

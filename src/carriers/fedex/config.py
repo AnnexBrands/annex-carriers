@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import os
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Literal, Optional, Union
 
 from .._core.config import BaseConfig, env_value, load_env_file
@@ -23,7 +23,7 @@ class FedExConfig(BaseConfig):
     user_agent: str = "annex-carriers-fedex/0.2.0"
     document_base_url: Optional[str] = None
     child_key: Optional[str] = None
-    child_secret: Optional[str] = None
+    child_secret: Optional[str] = field(default=None, repr=False)
 
     @property
     def resolved_base_url(self) -> str:
