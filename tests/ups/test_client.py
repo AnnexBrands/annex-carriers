@@ -5,9 +5,11 @@ import sys
 import unittest
 from urllib.parse import parse_qs, urlparse
 
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "src"))
+_ROOT = pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(_ROOT / "src"))
+sys.path.insert(0, str(_ROOT / "tests"))
 
-from ups_sdk import (
+from carriers.ups import (
     COMMERCIAL_INVOICE,
     UPSAPIError,
     UPSClient,
@@ -20,7 +22,8 @@ from ups_sdk import (
     first_candidate,
     rate_request_from_ship_payload,
 )
-from ups_sdk.transport import HttpResponse
+from carriers._core.retry import RetryPolicy
+from carriers._core.transport import HttpResponse
 
 
 class FakeTransport:
@@ -188,7 +191,11 @@ class UPSClientTests(unittest.TestCase):
         transport = FakeTransport(
             [HttpResponse(500, {"Content-Type": "text/plain"}, "server exploded")]
         )
-        client = UPSClient(self.config(), transport=transport)
+        # Retry is exercised in tests/core; here we want the raise, not
+        # three attempts against a one-response transport.
+        client = UPSClient(
+            self.config(), transport=transport, retry_policy=RetryPolicy.disabled()
+        )
 
         with self.assertRaises(UPSAPIError):
             client.request("GET", "/status", authenticated=False)

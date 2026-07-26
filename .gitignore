@@ -5,3 +5,10 @@ __pycache__/
 src/.env
 *:Zone.Identifier
 *.egg-info/
+build/
+dist/
+.pytest_cache/
+
+# Nothing in this package writes a token to disk, and nothing should start.
+*token_cache*.json
+

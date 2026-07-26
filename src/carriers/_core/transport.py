@@ -1,3 +1,9 @@
+"""HTTP transport: a protocol, and a dependency-free urllib implementation.
+
+Keeping the transport behind a Protocol is what lets the whole test suite run
+without a network, and lets a caller swap in ``requests``/``httpx`` without
+either carrier package knowing.
+"""
 from __future__ import annotations
 
 import gzip
@@ -7,6 +13,8 @@ import urllib.request
 import zlib
 from dataclasses import dataclass
 from typing import Mapping, Optional, Protocol
+
+from .errors import CarrierTransportError
 
 
 def decode_response_body(raw: bytes, headers: Mapping[str, str]) -> str:
@@ -23,7 +31,11 @@ def decode_response_body(raw: bytes, headers: Mapping[str, str]) -> str:
     if encoding == "gzip" or raw[:2] == b"\x1f\x8b":
         raw = gzip.decompress(raw)
     elif encoding == "deflate":
-        raw = zlib.decompress(raw)
+        try:
+            raw = zlib.decompress(raw)
+        except zlib.error:
+            # Some servers send raw deflate with no zlib header.
+            raw = zlib.decompress(raw, -zlib.MAX_WBITS)
     return raw.decode("utf-8")
 
 
@@ -83,6 +95,8 @@ class UrlLibTransport:
                     text=payload,
                 )
         except urllib.error.HTTPError as exc:
+            # An HTTPError is still a response — the carrier answered, just
+            # with a 4xx/5xx. The client turns it into a typed error.
             headers_map = dict(exc.headers.items())
             payload = decode_response_body(exc.read(), headers_map)
             return HttpResponse(
@@ -90,6 +104,14 @@ class UrlLibTransport:
                 headers=headers_map,
                 text=payload,
             )
+        except (urllib.error.URLError, TimeoutError, OSError) as exc:
+            raise CarrierTransportError(
+                f"{method.upper()} {url} failed before a response was received: {exc}",
+                cause=exc,
+            ) from exc
 
     def close(self) -> None:
         return None
+
+
+__all__ = ["HttpResponse", "Transport", "UrlLibTransport", "decode_response_body"]

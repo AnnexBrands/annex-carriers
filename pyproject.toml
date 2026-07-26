@@ -3,30 +3,46 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ups-api-sdk"
-version = "0.1.0"
-description = "A lightweight Python SDK for UPS REST APIs."
+name = "annex-carriers"
+version = "0.2.0"
+description = "Carrier REST API SDKs (UPS, FedEx) over one shared, dependency-free core."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = {text = "MIT"}
-authors = [{name = "UPS SDK Contributors"}]
-keywords = ["ups", "shipping", "tracking", "rates", "sdk"]
+authors = [{name = "Annex Brands", email = "bmonson@annexbrands.com"}]
+keywords = ["ups", "fedex", "shipping", "tracking", "rates", "etd", "sdk"]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
 
 [project.urls]
-Homepage = "https://developer.ups.com/"
-Documentation = "https://developer.ups.com/api/reference"
+Homepage = "https://github.com/AnnexBrands/annex-carriers"
+Repository = "https://github.com/AnnexBrands/annex-carriers"
+"UPS API reference" = "https://developer.ups.com/api/reference"
+"FedEx API reference" = "https://developer.fedex.com/api/en-us/catalog.html"
+
+[tool.setuptools]
+py-modules = ["ups_sdk", "fedex_sdk"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = [
+    # The compat shims warn on import; that is the point, not a test failure.
+    "ignore:ups_sdk has moved:DeprecationWarning",
+    "ignore:fedex_sdk has moved:DeprecationWarning",
+]
