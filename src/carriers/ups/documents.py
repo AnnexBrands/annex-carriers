@@ -189,6 +189,23 @@ def attach_paperless_documents(
     if not document_ids:
         raise ValueError("document_ids must contain at least one uploaded DocumentID")
 
+    # Read the ids defensively (#693). UPS's upload response collapses between
+    # a single object and an array depending on version, so a caller that
+    # mis-read it arrives here holding a blank or a None. Attaching that
+    # produces a shipment referencing a document that does not exist — accepted
+    # quietly by UPS and discovered by customs — so it is refused here, where
+    # the caller can still decide what to do about it.
+    blanks = [
+        index
+        for index, document_id in enumerate(document_ids)
+        if document_id is None or not str(document_id).strip()
+    ]
+    if blanks:
+        raise ValueError(
+            f"document_ids contains {len(blanks)} empty DocumentID(s) at "
+            f"position(s) {blanks}; UPS returned no usable id for those documents"
+        )
+
     payload = copy.deepcopy(dict(ship_payload))
     shipment_request = _ensure_dict(payload, "ShipmentRequest")
     shipment = _ensure_dict(shipment_request, "Shipment")
