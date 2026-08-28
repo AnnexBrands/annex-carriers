@@ -1,0 +1,40 @@
+FORWARD AIR SOLUTIONS
+REMITTANCE ADVICE
+
+Billing Date: 7/20/26
+Summary Bill No: 3793517
+Amount Due:  917.81
+
+Airbill/Invoice No.: 96728197
+Org/Dst: CMH/CID
+Ship Date: 7/13/26
+Weight: 497.0
+Reweighed Weight   515.0
+Rate:
+          CL 500                                                  250.00
+          Fuel Surcharge                                           52.88
+          Residential Delivery                                     25.00
+                                        327.88 Airbill Total
+Delivery Location: 1 WAREHOUSE WAY
+
+Airbill/Invoice No.: 96734873
+Org/Dst: DFW/BTR
+Ship Date: 7/13/26
+Weight: 407.0
+Rate:
+          CL 500                                                  160.00
+          Fuel Surcharge                                           46.13
+                                        206.13 Airbill Total
+Delivery Location: 1 WAREHOUSE WAY
+
+Airbill/Invoice No.: 96735396
+Org/Dst: DFW/MSP
+Ship Date: 7/13/26
+Weight: 178.0
+Rate:
+          CL 500                                                  300.00
+          Fuel Surcharge                                           63.80
+          Liftgate Service                                         20.00
+                                        383.80 Airbill Total
+Delivery Location: 1 WAREHOUSE WAY
+

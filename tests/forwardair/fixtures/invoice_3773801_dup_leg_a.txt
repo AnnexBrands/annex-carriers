@@ -1,0 +1,18 @@
+FORWARD AIR SOLUTIONS
+REMITTANCE ADVICE
+
+Billing Date: 6/15/26
+Summary Bill No: 3773801
+Amount Due:  183.28
+
+Airbill/Invoice No.: 96340828
+Org/Dst: EWR/JFK
+Ship Date: 6/12/26
+Weight: 310.0
+Rate:
+          CL 500                                                   54.90
+          Fuel Surcharge                                          101.75
+          Appointment Fee                                          26.63
+                                        183.28 Airbill Total
+Delivery Location: 1 WAREHOUSE WAY
+

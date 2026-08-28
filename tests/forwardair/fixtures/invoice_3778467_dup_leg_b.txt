@@ -1,0 +1,20 @@
+FORWARD AIR SOLUTIONS
+REMITTANCE ADVICE
+
+Billing Date: 6/23/26
+Summary Bill No: 3778467
+Amount Due:  362.54
+
+Airbill/Invoice No.: 96340828
+Org/Dst: MIA/EWR
+Ship Date: 6/04/26
+Weight: 615.0
+Rate:
+          CL 500                                                  108.00
+          Fuel Surcharge                                          100.00
+          Liftgate Service                                         50.00
+          Inside Delivery                                          50.00
+          Beyond Delivery                                          54.54
+                                        362.54 Airbill Total
+Delivery Location: 1 WAREHOUSE WAY
+

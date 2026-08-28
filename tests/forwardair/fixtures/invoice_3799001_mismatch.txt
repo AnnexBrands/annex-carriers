@@ -1,0 +1,17 @@
+FORWARD AIR SOLUTIONS
+REMITTANCE ADVICE
+
+Billing Date: 8/03/26
+Summary Bill No: 3799001
+Amount Due:  500.00
+
+Airbill/Invoice No.: 96800111
+Org/Dst: SFO/SEA
+Ship Date: 7/28/26
+Weight: 220.0
+Rate:
+          CL 500                                                  300.00
+          Fuel Surcharge                                           60.00
+                                        500.00 Airbill Total
+Delivery Location: 1 WAREHOUSE WAY
+

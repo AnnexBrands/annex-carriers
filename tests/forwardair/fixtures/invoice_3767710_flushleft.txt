@@ -1,0 +1,26 @@
+FORWARD AIR SOLUTIONS
+REMITTANCE ADVICE
+
+Billing Date: 6/08/26
+Summary Bill No: 3767710
+Amount Due:  901.93
+
+Airbill/Invoice No.: 96200090
+Org/Dst: LAX/ORD
+Ship Date: 6/01/26
+Weight: 1,240.0
+Rate:
+          CL 500                                                  420.00
+          Fuel Surcharge                                          118.44
+          Beyond Delivery                                          75.00
+          Residential Delivery                                     45.00
+          Liftgate Service                                         55.00
+          Inside Delivery                                          40.00
+          Appointment Fee                                          25.00
+          Blanket Wrap                                             18.49
+          Origin Terminal Handling                                 12.00
+          Insurance                                                 8.00
+Debis Removal 1 (shrink & skid only per unit)                      85.00
+                                        901.93 Airbill Total
+Delivery Location: 1 WAREHOUSE WAY
+

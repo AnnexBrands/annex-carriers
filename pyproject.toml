@@ -26,6 +26,10 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]
+# Forward Air is a document adapter, not a REST one: it parses remittance
+# invoice PDFs. pdfminer is therefore an opt-in extra so the base package
+# keeps its zero-runtime-dependency promise (see README).
+forwardair = ["pdfminer.six>=20221105"]
 
 [project.urls]
 Homepage = "https://github.com/AnnexBrands/annex-carriers"
@@ -41,6 +45,12 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+markers = [
+    # Builds a throwaway virtualenv to prove the packaging contract end to end.
+    # Too slow for every run: `pytest -m slow`.
+    "slow: full-isolation packaging checks (creates a venv)",
+]
+addopts = "-m 'not slow'"
 filterwarnings = [
     # The compat shims warn on import; that is the point, not a test failure.
     "ignore:ups_sdk has moved:DeprecationWarning",

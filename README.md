@@ -13,9 +13,10 @@ They are now one repository with an internal core and one adapter per carrier.
 
 ```
 src/carriers/
-  _core/     transport · retry · multipart · token · error base · config base
-  ups/       UPS OAuth, versioned URL map, payload builders   (19 API families)
-  fedex/     FedEx OAuth, URL map, ETD workflows              (8 API families)
+  _core/       transport · retry · multipart · token · error base · config base
+  ups/         UPS OAuth, versioned URL map, payload builders   (19 API families)
+  fedex/       FedEx OAuth, URL map, ETD workflows              (8 API families)
+  forwardair/  remittance invoice PDF parsing                   (no API)
 ```
 
 The leading underscore is the contract: `_core` is internal and free to change
@@ -30,6 +31,44 @@ pip install -e .
 ```
 
 Python 3.11+. No runtime dependencies.
+
+Adapters that need one declare it as an extra, so the base install stays clean:
+
+```bash
+pip install -e '.[forwardair]'    # adds pdfminer.six
+```
+
+## Forward Air — a document adapter
+
+`carriers.forwardair` breaks the shape of the other two on purpose. Forward Air
+bills by emailing summary-bill PDFs; there is no rating or tracking API behind
+it, so the adapter exposes **no client class** and touches none of `_core`.
+An adapter models what the carrier actually offers.
+
+```python
+from carriers.forwardair import parse_file
+
+inv = parse_file("Inv3793517-2552326.PDF")
+print(inv.number, inv.total_due, len(inv.airbills))
+for ab in inv.airbills.values():
+    print(ab.number, ab.org_dst, ab.amount_due, ab.rate_total)
+print(inv.errors)   # reconciliation + parse problems, never raised
+```
+
+Content problems — a charge line that will not parse, totals that fail to
+reconcile, a summary-bill number contradicting the caller's expectation — land
+in `Invoice.errors` rather than raising, so one bad document cannot abort a
+batch. I/O and pdfminer failures do propagate.
+
+**Callers are expected to surface `Invoice.errors` before acting on a parse.**
+The rate-line pattern deliberately accepts any left margin, because requiring a
+minimum indent silently dropped charge lines long enough to render flush-left.
+The trade is that a false positive is possible — and it necessarily breaks
+`Airbill.rate_total == Airbill.amount_due`, so it shows up in `errors` instead
+of passing quietly.
+
+The adapter knows nothing about any caller's billing rules: markup, CSV shapes,
+and database procedures live with the consumer, not here.
 
 ## Quick start
 
