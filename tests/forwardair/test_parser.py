@@ -172,3 +172,67 @@ def test_parse_file_defaults_invoice_number_to_file_stem(monkeypatch, tmp_path):
     pdf = tmp_path / "3793517.PDF"
     pdf.write_bytes(b"%PDF-1.4")
     assert parse_file(pdf).number == "3793517"
+
+
+# ---- airbill numbers outside the 8xxxxxxx-9xxxxxxx range -------------------
+#
+# The number regex was originally `\b([89]\d{7})\b`. Airbill 16617949 never
+# matched, so it was dropped -- and because the orphan's rate lines stayed in
+# the parser's pending buffer, the NEXT airbill adopted them: 96745373 came
+# back carrying all nine lines and a rate_total of 777.79 against its own
+# printed total of 402.64.
+
+@pytest.fixture
+def low_airbill(monkeypatch) -> Invoice:
+    return parse_fixture("invoice_3799999_low_airbill.txt", "3799999", monkeypatch)
+
+
+def test_airbill_number_not_starting_with_8_or_9_is_read(low_airbill):
+    assert "16617949" in low_airbill.airbills
+
+
+def test_both_airbills_are_separate(low_airbill):
+    assert set(low_airbill.airbills) == {"16617949", "96745373"}
+
+
+def test_neighbour_does_not_absorb_the_other_airbills_charges(low_airbill):
+    """The merge symptom: nine lines and 777.79 under the second airbill."""
+    later = low_airbill.airbills["96745373"]
+    assert len(later.rates) == 5
+    assert later.rate_total == pytest.approx(402.64)
+    assert later.amount_due == pytest.approx(402.64)
+
+
+def test_low_numbered_airbill_keeps_its_own_charges(low_airbill):
+    early = low_airbill.airbills["16617949"]
+    assert len(early.rates) == 4
+    assert early.rate_total == pytest.approx(375.15)
+    assert early.amount_due == pytest.approx(375.15)
+    assert early.org_dst == "LAX/RDU"
+    assert early.ship_date == "8/10/26"
+
+
+def test_reference_number_is_not_mistaken_for_the_airbill(low_airbill):
+    """16617949's Reference No. is 96617949 — one digit away, and in the old
+    8/9 range. An unanchored digit search would bind the wrong number."""
+    assert "96617949" not in low_airbill.airbills
+
+
+def test_low_airbill_invoice_reconciles(low_airbill):
+    assert low_airbill.airbill_total == pytest.approx(777.79)
+    assert low_airbill.errors == []
+
+
+def test_an_unreadable_airbill_header_does_not_corrupt_the_next_one(monkeypatch):
+    """Even with the range fixed, a header the parser genuinely cannot read
+    must not leak its charges forward — that was a second, separate defect."""
+    text = (FIXTURES / "invoice_3799999_low_airbill.txt").read_text()
+    text = text.replace("Airbill/Invoice No.: 16617949", "Airbill/Invoice No.: n/a")
+    monkeypatch.setattr(parser_mod, "extract_text", lambda _p: text)
+    inv = InvoiceParser("3799999").parse("x.PDF")
+
+    assert list(inv.airbills) == ["96745373"]
+    later = inv.airbills["96745373"]
+    assert len(later.rates) == 5
+    assert later.rate_total == pytest.approx(402.64)
+    assert any("Could not parse airbill number" in e for e in inv.errors)

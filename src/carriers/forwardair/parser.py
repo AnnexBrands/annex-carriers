@@ -63,6 +63,8 @@ class InvoiceParser:
         self._curr_key: str = "_pending"
         self._pending = Airbill()
         self._in_rate_block = False
+        # True once an airbill header could not be read, until the next one is.
+        self._orphaned = False
 
     def parse(self, pdf_path: str) -> Invoice:
         text = extract_text(pdf_path)
@@ -127,14 +129,30 @@ class InvoiceParser:
     def _check_new_awb(self, line: str) -> bool:
         if not line.startswith("Airbill/Invoice No.:"):
             return False
-        m = re.search(r"\b([89]\d{7})\b", line)
+        # Anchored on the label, and NOT restricted to a leading 8 or 9.  An
+        # earlier `\b([89]\d{7})\b` silently refused airbill 16617949 and every
+        # other number outside the 8xxxxxxx-9xxxxxxx range.
+        #
+        # Anchoring matters as much as the range: airbills carry a Reference
+        # No. that can sit one digit away from the airbill itself (16617949
+        # references 96617949), so a bare digit search could bind the wrong one.
+        m = re.search(r"Airbill/Invoice No\.:\s*(\d{6,12})", line)
         if not m:
             self._inv.errors.append(f"Could not parse airbill number from: {line}")
+            # Everything after this belongs to an airbill we cannot name.  Flag
+            # it so the NEXT airbill starts from a clean slate -- otherwise the
+            # orphan's rate lines keep accumulating in _pending and are adopted
+            # wholesale by the next airbill, inflating its charges by this
+            # one's and leaving a total that reconciles against nothing.
+            self._orphaned = True
             return False
         bill = m.group(1)
         if bill in self._inv.airbills:
             self._inv.errors.append(f"Duplicate airbill {bill}")
             return False
+        if self._orphaned:
+            self._pending = Airbill()
+            self._orphaned = False
         self._pending.number = bill
         self._inv.airbills[bill] = self._pending
         self._pending = Airbill()

@@ -1,0 +1,33 @@
+FORWARD AIR SOLUTIONS
+REMITTANCE ADVICE
+
+Billing Date: 8/14/26
+Summary Bill No: 3799999
+Amount Due:  777.79
+
+Airbill/Invoice No.: 16617949
+Org/Dst: LAX/RDU
+Ship Date: 8/10/26
+Weight: 92.5
+Reference No.: 96617949, 7024511
+Rate:
+          CL 92.5 335.0 L@CL70@$496.50/C                  239.51
+          Station Surcharge                                11.98
+          PICKUP SURCHARGE COMPLETE                         7.50
+          Fuel Surcharge                                  116.16
+                                        375.15 Airbill Total
+Delivery Location: NAVIS PACK SHIP 1064NC
+
+Airbill/Invoice No.: 96745373
+Org/Dst: BUF/ORD
+Ship Date: 7/21/26
+Weight: 100
+Reference No.: 7733559, 7733559, 95190.6
+Rate:
+          CL 100 320.0 L@CL70@$129.00/MI                   129.00
+          Attempted DEL +Applicable Fuel                    75.00
+          Liftgate Delivery-Complete                        75.00
+          WEIGHT/CLASS INSPECTION FEE                       40.00
+          Fuel Surcharge                                    83.64
+                                        402.64 Airbill Total
+Delivery Location: Apex Marketing INTL
