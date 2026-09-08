@@ -31,7 +31,7 @@ from ._core.models import AccessToken, CarrierResponse
 from ._core.retry import RetryPolicy
 from ._core.transport import HttpResponse, Transport, UrlLibTransport
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 __all__ = [
     "AccessToken",

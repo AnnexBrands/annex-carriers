@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT / "tests"))
 from carriers.ups import (
     EEI_EXEMPTION,
     EEI_FILED_BY_SHIPPER,
+    EEI_FILED_BY_UPS,
     EEI_PRE_DEPARTURE_ITN,
     attach_international_forms,
     attach_paperless_documents,
@@ -71,6 +72,20 @@ class ProductTests(unittest.TestCase):
 
 
 class EeiFilingOptionTests(unittest.TestCase):
+    def test_filing_codes_match_the_ups_shipping_schema(self):
+        # Shipping.yaml: 1 = shipper filed, 2 = AES Direct, 3 = UPS filed.
+        # Assert the literal wire values, independently of our constants.
+        self.assertEqual(EEI_FILED_BY_SHIPPER, "1")
+        self.assertEqual(EEI_FILED_BY_UPS, "3")
+        self.assertEqual(build_eei_filing_option(itn="X20260824123456"), {
+            "Code": "1",
+            "ShipperFiled": {"Code": "A", "PreDepartureITNNumber": "X20260824123456"},
+        })
+        self.assertEqual(build_eei_filing_option(exemption_legend="30.36"), {
+            "Code": "1",
+            "ShipperFiled": {"Code": "B", "ExemptionLegend": "30.36"},
+        })
+
     def test_an_itn_is_cited_as_a_pre_departure_number(self):
         option = build_eei_filing_option(itn="X20260824123456")
         self.assertEqual(option["Code"], EEI_FILED_BY_SHIPPER)

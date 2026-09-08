@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "annex-carriers"
-version = "0.2.0"
+version = "0.2.1"
 description = "Carrier REST API SDKs (UPS, FedEx) over one shared, dependency-free core."
 readme = "README.md"
 requires-python = ">=3.11"

@@ -49,13 +49,12 @@ EEI = "11"
 # --- EEI filing options ----------------------------------------------------
 
 #: UPS files the EEI on the shipper's behalf (needs a power of attorney).
-EEI_FILED_BY_UPS = "1"
+EEI_FILED_BY_UPS = "3"
 #: The shipper filed it, or claims an exemption from filing.
-EEI_FILED_BY_SHIPPER = "2"
+EEI_FILED_BY_SHIPPER = "1"
 
 #: Shipper-filed sub-codes. ``A`` cites a pre-departure ITN; ``B`` is the
-#: post-departure / exemption case UPS's own example uses with an
-#: ``ExemptionLegend``.
+#: exemption case with an ``ExemptionLegend``. Post-departure is code ``C``.
 EEI_PRE_DEPARTURE_ITN = "A"
 EEI_EXEMPTION = "B"
 
